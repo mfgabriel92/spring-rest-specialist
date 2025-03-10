@@ -1,0 +1,16 @@
+databaseChangeLog:
+  - changeSet:
+      id: a2fa5280-23c7-44d4-9cb6-e3fabb06e58d
+      author: springrestspecialist
+      changes:
+        - createTable:
+            tableName: states
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR(25)

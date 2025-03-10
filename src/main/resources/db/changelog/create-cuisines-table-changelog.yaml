@@ -1,0 +1,16 @@
+databaseChangeLog:
+  - changeSet:
+      id: da2e810a-9b7e-4eae-98c8-06956446279e
+      author: springrestspecialist
+      changes:
+        - createTable:
+            tableName: cuisines
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR(25)

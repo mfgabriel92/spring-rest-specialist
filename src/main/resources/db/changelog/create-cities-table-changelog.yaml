@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2d6d240e-ba49-4f52-94d7-2f8f0acf8bb6
+      author: springrestspecialist
+      changes:
+        - createTable:
+            tableName: cities
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR
+              - column:
+                  name: state_id
+                  type: UUID
+        - addForeignKeyConstraint:
+            baseColumnNames: state_id
+            baseTableName: cities
+            constraintName: cities_states_fk
+            referencedColumnNames: id
+            referencedTableName: states

@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: 57cdb262-c856-484f-a0f8-52f56063a72f
+      author: springrestspecialist
+      changes:
+        - createTable:
+            tableName: payment_methods
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: description
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: true

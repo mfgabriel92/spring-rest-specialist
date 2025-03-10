@@ -1,0 +1,25 @@
+package com.gabriel.springrestspecialist.api.controller;
+
+import com.gabriel.springrestspecialist.domain.model.Restaurant;
+import com.gabriel.springrestspecialist.domain.repository.RestaurantRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+import static org.springframework.http.ResponseEntity.ok;
+
+@RestController
+@RequestMapping("/api/v1/restaurants")
+@RequiredArgsConstructor
+public class RestaurantController {
+    private final RestaurantRepository restaurantRepository;
+
+    @GetMapping
+    public ResponseEntity<List<Restaurant>> findAll() {
+        return ok(restaurantRepository.findAll());
+    }
+}
