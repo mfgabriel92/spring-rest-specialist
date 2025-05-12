@@ -1,11 +1,1 @@
-package com.gabriel.springrestspecialist.domain.repository;
-
-import com.gabriel.springrestspecialist.domain.model.Restaurant;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
-import java.util.UUID;
-
-@Repository
-public interface RestaurantRepository extends JpaRepository<Restaurant, UUID> {
-}
+package com.gabriel.springrestspecialist.domain.repository;import com.gabriel.springrestspecialist.domain.model.Restaurant;import org.springframework.data.jpa.repository.JpaRepository;import org.springframework.data.jpa.repository.Query;import org.springframework.stereotype.Repository;import java.util.List;import java.util.UUID;@Repositorypublic interface RestaurantRepository extends JpaRepository<Restaurant, UUID> {    @Query("SELECT r FROM Restaurant r JOIN FETCH r.cuisine")    List<Restaurant> findAll();}

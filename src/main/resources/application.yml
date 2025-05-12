@@ -2,9 +2,9 @@ spring:
   application:
     name: spring-rest-specialist
   datasource:
-    url: jdbc:postgresql://localhost:5432/spring-rest-specialist
+    url: jdbc:postgresql://localhost:5432/springrestspecialist
     username: postgres
-    password: root
+    password:
   jpa:
     show-sql: true
     properties:
@@ -13,3 +13,6 @@ spring:
         format-sql: true
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.yaml
+  sql:
+    init:
+      mode: always
