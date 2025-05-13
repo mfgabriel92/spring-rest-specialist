@@ -13,4 +13,4 @@ databaseChangeLog:
                     primaryKey: true
               - column:
                   name: name
-                  type: VARCHAR(25)
+                  type: VARCHAR(50)

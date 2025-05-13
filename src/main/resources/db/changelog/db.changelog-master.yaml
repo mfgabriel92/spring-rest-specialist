@@ -2,12 +2,12 @@ databaseChangeLog:
   - include:
       file: db/changelog/create-cuisines-table-changelog.yaml
   - include:
-      file: db/changelog/create-restaurants-table-changelog.yaml
-  - include:
       file: db/changelog/create-states-table-changelog.yaml
   - include:
       file: db/changelog/create-cities-table-changelog.yaml
   - include:
       file: db/changelog/create-permissions-table-changelog.yaml
+  - include:
+      file: db/changelog/create-restaurants-table-changelog.yaml
   - include:
       file: db/changelog/create-payment_methods-table-changelog.yaml

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 
 import static org.springframework.http.ResponseEntity.ok;
 
@@ -26,17 +25,23 @@ public class RestaurantController {
     }
 
     @GetMapping("containing")
-    public ResponseEntity<Optional<List<Restaurant>>> findByNameContaining(String name) {
+    public ResponseEntity<List<Restaurant>> findByNameContaining(String name) {
         return ok(restaurantRepository.findByNameContaining(name));
     }
 
     @GetMapping("between-delivery-fees")
-    public ResponseEntity<Optional<List<Restaurant>>> findByDeliveryFeeBetween(BigDecimal min, BigDecimal max) {
+    public ResponseEntity<List<Restaurant>> findByDeliveryFeeBetween(BigDecimal min, BigDecimal max) {
         return ok(restaurantRepository.findByDeliveryFeeBetween(min, max));
     }
 
     @GetMapping("free-delivery")
-    public ResponseEntity<Optional<List<Restaurant>>> findAllFreeDelivery(BigDecimal min, BigDecimal max) {
+    public ResponseEntity<List<Restaurant>> findAllFreeDelivery() {
         return ok(restaurantRepository.findAllFreeDelivery());
+    }
+
+    @GetMapping("no-kitchen")
+    public ResponseEntity<List<Restaurant>> findAllWithoutKitchen() {
+        return ok(restaurantRepository.findAllWithoutKitchen());
+        //a
     }
 }

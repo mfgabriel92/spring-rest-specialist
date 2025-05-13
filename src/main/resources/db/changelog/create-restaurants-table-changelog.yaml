@@ -20,9 +20,18 @@ databaseChangeLog:
               - column:
                   name: cuisine_id
                   type: UUID
+              - column:
+                  name: city_id
+                  type: UUID
         - addForeignKeyConstraint:
             baseColumnNames: cuisine_id
             baseTableName: restaurants
             constraintName: restaurants_cuisines_fk
             referencedColumnNames: id
             referencedTableName: cuisines
+        - addForeignKeyConstraint:
+            baseColumnNames: city_id
+            baseTableName: restaurants
+            constraintName: restaurants_city_fk
+            referencedColumnNames: id
+            referencedTableName: cities
