@@ -34,4 +34,9 @@ public class RestaurantController {
     public ResponseEntity<Optional<List<Restaurant>>> findByDeliveryFeeBetween(BigDecimal min, BigDecimal max) {
         return ok(restaurantRepository.findByDeliveryFeeBetween(min, max));
     }
+
+    @GetMapping("free-delivery")
+    public ResponseEntity<Optional<List<Restaurant>>> findAllFreeDelivery(BigDecimal min, BigDecimal max) {
+        return ok(restaurantRepository.findAllFreeDelivery());
+    }
 }
