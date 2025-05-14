@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 import static org.springframework.http.ResponseEntity.ok;
 
@@ -51,5 +52,21 @@ public class RestaurantController {
         BigDecimal maxDeliveryFee
     ) {
         return ok(restaurantRepository.findAllByNameLikeAndBetweenDeliveryFees(name, minDeliveryFee, maxDeliveryFee));
+    }
+
+    @GetMapping("latest")
+    public ResponseEntity<Optional<Restaurant>> findLatestRegistered() {
+        var latest = restaurantRepository.findLatestRegistered();
+        return latest.isPresent()
+            ? ok(latest)
+            : ok(Optional.empty());
+    }
+
+    @GetMapping("first")
+    public ResponseEntity<Optional<Restaurant>> findFirstRegistered() {
+        var latest = restaurantRepository.findFirstRegistered();
+        return latest.isPresent()
+            ? ok(latest)
+            : ok(Optional.empty());
     }
 }

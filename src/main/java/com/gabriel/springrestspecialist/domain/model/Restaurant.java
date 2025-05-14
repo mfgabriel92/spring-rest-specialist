@@ -1,9 +1,12 @@
 package com.gabriel.springrestspecialist.domain.model;
 
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -14,13 +17,17 @@ public class Restaurant {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
     private BigDecimal deliveryFee;
 
     @ManyToOne
-    @JoinColumn(nullable = false)
+    @JoinColumn
     private Cuisine cuisine;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
 }
