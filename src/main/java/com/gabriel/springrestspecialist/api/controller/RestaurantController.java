@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static com.gabriel.springrestspecialist.infrastructure.repository.spec.RestaurantSpecs.withDeliveryFeesBetween;
+import static com.gabriel.springrestspecialist.infrastructure.repository.spec.RestaurantSpecs.withNameLike;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
@@ -29,11 +31,6 @@ public class RestaurantController {
         return ok(restaurantRepository.findByNameContaining(name));
     }
 
-    @GetMapping("between-delivery-fees")
-    public ResponseEntity<List<Restaurant>> findByDeliveryFeeBetween(BigDecimal min, BigDecimal max) {
-        return ok(restaurantRepository.findByDeliveryFeeBetween(min, max));
-    }
-
     @GetMapping("free-delivery")
     public ResponseEntity<List<Restaurant>> findAllFreeDelivery() {
         return ok(restaurantRepository.findAllFreeDelivery());
@@ -47,5 +44,16 @@ public class RestaurantController {
     @GetMapping("name-with-delivery-fee")
     public ResponseEntity<List<Restaurant>> findAllByNameAndDeliveryFee(String name, BigDecimal deliveryFee) {
         return ok(restaurantRepository.findAllByNameAndDeliveryFee(name, deliveryFee));
+    }
+
+    @GetMapping("delivery-fees-between")
+    public ResponseEntity<List<Restaurant>> findAllByNameLikeAndBetweenDeliveryFees(
+        String name,
+        BigDecimal minDeliveryFee,
+        BigDecimal maxDeliveryFee
+    ) {
+        return ok(restaurantRepository.findAll(withNameLike(name)
+            .and(withDeliveryFeesBetween(minDeliveryFee, maxDeliveryFee))
+        ));
     }
 }
