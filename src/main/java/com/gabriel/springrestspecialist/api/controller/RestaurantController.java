@@ -42,6 +42,10 @@ public class RestaurantController {
     @GetMapping("no-kitchen")
     public ResponseEntity<List<Restaurant>> findAllWithoutKitchen() {
         return ok(restaurantRepository.findAllWithoutKitchen());
-        //a
+    }
+
+    @GetMapping("name-with-delivery-fee")
+    public ResponseEntity<List<Restaurant>> findAllByNameAndDeliveryFee(String name, BigDecimal deliveryFee) {
+        return ok(restaurantRepository.findAllByNameAndDeliveryFee(name, deliveryFee));
     }
 }

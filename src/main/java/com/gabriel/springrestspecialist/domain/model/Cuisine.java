@@ -15,5 +15,4 @@ public class Cuisine {
 
     @Column(nullable = false)
     private String name;
-
 }
