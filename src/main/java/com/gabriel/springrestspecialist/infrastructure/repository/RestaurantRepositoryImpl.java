@@ -1,6 +1,9 @@
 package com.gabriel.springrestspecialist.infrastructure.repository;
 
 import com.gabriel.springrestspecialist.domain.model.Restaurant;
+import com.gabriel.springrestspecialist.domain.repository.RestaurantRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -9,8 +12,15 @@ import javax.persistence.criteria.JoinType;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static com.gabriel.springrestspecialist.infrastructure.repository.spec.RestaurantSpecs.withDeliveryFeesBetween;
+import static com.gabriel.springrestspecialist.infrastructure.repository.spec.RestaurantSpecs.withNameLike;
+
 @Repository
+@RequiredArgsConstructor(onConstructor_ = { @Lazy })
 public class RestaurantRepositoryImpl implements RestaurantRepositoryImplQueries {
+    @Lazy
+    private final RestaurantRepository restaurantRepository;
+
     @PersistenceContext
     private EntityManager manager;
 
@@ -36,5 +46,12 @@ public class RestaurantRepositoryImpl implements RestaurantRepositoryImplQueries
 
         var query = manager.createQuery(criteriaQuery);
         return query.getResultList();
+    }
+
+    @Override
+    public List<Restaurant> findAllByNameLikeAndBetweenDeliveryFees(String name, BigDecimal minDeliveryFee, BigDecimal maxDeliveryFee) {
+        return restaurantRepository.findAll(withNameLike(name)
+            .and(withDeliveryFeesBetween(minDeliveryFee, maxDeliveryFee))
+        );
     }
 }

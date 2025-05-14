@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static com.gabriel.springrestspecialist.infrastructure.repository.spec.RestaurantSpecs.withDeliveryFeesBetween;
-import static com.gabriel.springrestspecialist.infrastructure.repository.spec.RestaurantSpecs.withNameLike;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
@@ -52,8 +50,6 @@ public class RestaurantController {
         BigDecimal minDeliveryFee,
         BigDecimal maxDeliveryFee
     ) {
-        return ok(restaurantRepository.findAll(withNameLike(name)
-            .and(withDeliveryFeesBetween(minDeliveryFee, maxDeliveryFee))
-        ));
+        return ok(restaurantRepository.findAllByNameLikeAndBetweenDeliveryFees(name, minDeliveryFee, maxDeliveryFee));
     }
 }

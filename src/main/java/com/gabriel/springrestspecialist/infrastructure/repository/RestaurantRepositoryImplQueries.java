@@ -9,4 +9,6 @@ public interface RestaurantRepositoryImplQueries {
     List<Restaurant> findAllWithoutKitchen();
 
     List<Restaurant> findAllByNameAndDeliveryFee(String name, BigDecimal deliveryFee);
+
+    List<Restaurant> findAllByNameLikeAndBetweenDeliveryFees(String name, BigDecimal minDeliveryFee, BigDecimal maxDeliveryFee);
 }
