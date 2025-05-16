@@ -1,0 +1,26 @@
+package com.gabriel.springrestspecialist.domain.model;
+
+import lombok.Data;
+
+import javax.persistence.*;
+import java.util.List;
+import java.util.UUID;
+
+@Entity
+@Table(name = "groups")
+@Data
+public class Group {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
+
+    private String name;
+
+    @ManyToMany
+    @JoinTable(
+        name = "groups_permissions",
+        joinColumns = @JoinColumn(name = "group_id"),
+        inverseJoinColumns = @JoinColumn(name = "permission_id")
+    )
+    private List<Permission> permissions;
+}

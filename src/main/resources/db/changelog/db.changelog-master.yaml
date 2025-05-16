@@ -17,3 +17,11 @@ databaseChangeLog:
       file: db/changelog/update-restaurants-add-address-changelog.yaml
   - include:
       file: db/changelog/create-products-table-changelog.yaml
+  - include:
+      file: db/changelog/create-groups-table-changelog.yaml
+  - include:
+      file: db/changelog/create-groups_permissions-table-changelog.yaml
+  - include:
+      file: db/changelog/create-users-table-changelog.yaml
+  - include:
+      file: db/changelog/create-users_groups-table-changelog.yaml

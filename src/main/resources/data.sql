@@ -5,6 +5,13 @@ TRUNCATE TABLE restaurants CASCADE;
 TRUNCATE TABLE payment_methods CASCADE;
 TRUNCATE TABLE restaurants_payment_methods CASCADE;
 TRUNCATE TABLE products CASCADE;
+TRUNCATE TABLE users CASCADE;
+TRUNCATE TABLE products CASCADE;
+TRUNCATE TABLE groups CASCADE;
+TRUNCATE TABLE permissions CASCADE;
+TRUNCATE TABLE groups_permissions CASCADE;
+TRUNCATE TABLE users CASCADE;
+TRUNCATE TABLE users_groups CASCADE;
 
 INSERT INTO cuisines (id, name)
 VALUES ('d42fcf63-b8fc-4ac4-a3a0-893fa9dbb2a9', 'Italian'),
@@ -374,10 +381,7 @@ VALUES
     ('d0c1c70e-620b-455e-8f1a-9dcf00fbfc25', '82536ca4-e2ae-41c1-8e1a-2dcab4efc162'),
     ('d0c1c70e-620b-455e-8f1a-9dcf00fbfc25', '463a87f1-b20f-4c66-a30d-b37a9e99276a'),
     ('d0c1c70e-620b-455e-8f1a-9dcf00fbfc25', '49275c4a-95a9-4da3-a78b-485e5fff9d84'),
-    ('d0c1c70e-620b-455e-8f1a-9dcf00fbfc25', 'ae236ea2-4b47-46eb-b386-5a4ad681e1ea'),
-    ('e218974b-16bd-49c5-9af6-7ef2843d6c80', '82536ca4-e2ae-41c1-8e1a-2dcab4efc162'),
-    ('e218974b-16bd-49c5-9af6-7ef2843d6c80', '0f613a9f-5a1b-44de-873a-49abd07c5a37'),
-    ('6f76e734-5927-49cf-ae02-2ec45445495f', '82536ca4-e2ae-41c1-8e1a-2dcab4efc162'),
+    ('d0c1c70e-620b-455e-8f1a-9dcf00fbfc25', 'ae236ea2-4b47-46eb-b386-5a4ad681e1ea'),    ('6f76e734-5927-49cf-ae02-2ec45445495f', '82536ca4-e2ae-41c1-8e1a-2dcab4efc162'),
     ('6f76e734-5927-49cf-ae02-2ec45445495f', '0f613a9f-5a1b-44de-873a-49abd07c5a37'),
     ('6f76e734-5927-49cf-ae02-2ec45445495f', '57fb5336-47ca-4ef3-b455-d079e590b2d0'),
     ('6f76e734-5927-49cf-ae02-2ec45445495f', 'ce8c2117-dc13-4d01-be87-43ef464199d8'),

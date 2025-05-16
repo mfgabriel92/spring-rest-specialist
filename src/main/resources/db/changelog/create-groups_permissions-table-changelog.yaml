@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - changeSet:
+      id: dbb1fa7e-42e9-46a5-9b09-0e7d8709e0b7
+      author: springrestspecialist
+      changes:
+        - createTable:
+            tableName: groups_permissions
+            columns:
+              - column:
+                  name: group_id
+                  type: UUID
+              - column:
+                  name: permission_id
+                  type: UUID
+        - addPrimaryKey:
+            tableName: groups_permissions
+            columnNames: group_id, permission_id
+            constraintName: groups_permissions_pk
+        - addForeignKeyConstraint:
+            baseColumnNames: group_id
+            baseTableName: groups_permissions
+            constraintName: groups_permissions_groups_fk
+            referencedColumnNames: id
+            referencedTableName: groups
+        - addForeignKeyConstraint:
+            baseColumnNames: permission_id
+            baseTableName: groups_permissions
+            constraintName: groups_permissions_permissions_fk
+            referencedColumnNames: id
+            referencedTableName: permissions

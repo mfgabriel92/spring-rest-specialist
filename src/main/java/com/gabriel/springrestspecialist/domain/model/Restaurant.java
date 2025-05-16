@@ -39,6 +39,10 @@ public class Restaurant {
     @Embedded
     private Address address;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "restaurant")
+    private List<Product> products;
+
     @CreationTimestamp
     private LocalDateTime createdAt;
 

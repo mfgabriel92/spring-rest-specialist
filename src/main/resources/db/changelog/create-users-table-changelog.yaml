@@ -1,27 +1,38 @@
 databaseChangeLog:
   - changeSet:
-      id: d384853a-f541-4b42-97ad-5e0628963c43
+      id: be48f399-fa58-4bf3-addf-ad03b95d7a5b
       author: springrestspecialist
       changes:
         - createTable:
-            tableName: restaurants
+            tableName: users
             columns:
               - column:
                   name: id
                   type: UUID
                   constraints:
                     primaryKey: true
+                    nullable: false
               - column:
                   name: name
-                  type: VARCHAR(50)
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
               - column:
-                  name: delivery_fee
-                  type: DECIMAL
+                  name: email
+                  type: VARCHAR(150)
+                  constraints:
+                    nullable: false
+                    unique: true
               - column:
-                  name: cuisine_id
+                  name: password
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: group_id
                   type: UUID
                   constraints:
-                    nullable: true
+                    nullable: false
               - column:
                   name: created_at
                   type: TIMESTAMP
@@ -34,9 +45,3 @@ databaseChangeLog:
                   defaultValueComputed: CURRENT_TIMESTAMP
                   constraints:
                     nullable: false
-        - addForeignKeyConstraint:
-            baseColumnNames: cuisine_id
-            baseTableName: restaurants
-            constraintName: restaurants_cuisines_fk
-            referencedColumnNames: id
-            referencedTableName: cuisines

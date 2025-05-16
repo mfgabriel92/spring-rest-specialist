@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - changeSet:
+      id: bb826c16-f7ba-49c3-b2d7-348fa702413f
+      author: springrestspecialist
+      changes:
+        - createTable:
+            tableName: users_groups
+            columns:
+              - column:
+                  name: user_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: group_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+        - addPrimaryKey:
+            tableName: users_groups
+            columnNames: user_id, group_id
+            constraintName: pk_users_groups
+        - addForeignKeyConstraint:
+            baseTableName: users_groups
+            baseColumnNames: user_id
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_users_groups_user
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: users_groups
+            baseColumnNames: group_id
+            referencedTableName: groups
+            referencedColumnNames: id
+            constraintName: fk_users_groups_group
+            onDelete: CASCADE

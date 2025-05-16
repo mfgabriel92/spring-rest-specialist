@@ -1,0 +1,16 @@
+databaseChangeLog:
+  - changeSet:
+      id: a9e40fbe-d842-4856-83d4-956cf6c1d682
+      author: springrestspecialist
+      changes:
+        - createTable:
+            tableName: groups
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR(25)

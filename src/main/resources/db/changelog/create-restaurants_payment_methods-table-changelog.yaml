@@ -12,6 +12,10 @@ databaseChangeLog:
               - column:
                   name: payment_method_id
                   type: UUID
+        - addPrimaryKey:
+            tableName: restaurants_payment_methods
+            columnNames: restaurant_id, payment_method_id
+            constraintName: restaurants_payment_methods_pk
         - addForeignKeyConstraint:
             baseColumnNames: restaurant_id
             baseTableName: restaurants_payment_methods

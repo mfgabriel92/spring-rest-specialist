@@ -94,7 +94,7 @@ public class RestaurantController {
             var current = restaurantRepository.findById(id).orElseThrow(() ->
                 new EntityNotFoundException(String.format("Restaurant with id %s not found", id)));
 
-            BeanUtils.copyProperties(restaurant, current, "id", "paymentMethods", "createdAt");
+            BeanUtils.copyProperties(restaurant, current, "id", "paymentMethods", "address", "products", "createdAt");
             current = restaurantService.save(current);
 
             return ResponseEntity.ok(current);
