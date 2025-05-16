@@ -7,11 +7,18 @@ import com.gabriel.springrestspecialist.domain.repository.RestaurantRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @AllArgsConstructor
 public class RestaurantService {
     private final RestaurantRepository restaurantRepository;
     private final CuisineRepository cuisineRepository;
+
+    public Restaurant findById(UUID id) {
+        return restaurantRepository.findById(id).orElseThrow(() ->
+            new EntityNotFoundException(String.format("Restaurant with id %s not found", id)));
+    }
 
     public Restaurant save(Restaurant restaurant) {
         var cuisineId = restaurant.getCuisine().getId();

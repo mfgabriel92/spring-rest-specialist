@@ -31,10 +31,7 @@ public class RestaurantController {
 
     @GetMapping("{id}")
     public ResponseEntity<Restaurant> findBId(@PathVariable UUID id) {
-        var restaurant = restaurantRepository.findById(id).orElseThrow(() ->
-            new EntityNotFoundException(String.format("Restaurant with id %s not found", id)));
-
-        return ok(restaurant);
+        return ok(restaurantService.findById(id));
     }
 
     @GetMapping("containing")
@@ -90,16 +87,11 @@ public class RestaurantController {
 
     @PutMapping("{id}")
     public ResponseEntity<?> save(@PathVariable UUID id, @RequestBody Restaurant restaurant) {
-        try {
-            var current = restaurantRepository.findById(id).orElseThrow(() ->
-                new EntityNotFoundException(String.format("Restaurant with id %s not found", id)));
+        var current = restaurantService.findById(id);
 
-            BeanUtils.copyProperties(restaurant, current, "id", "paymentMethods", "address", "products", "createdAt");
-            current = restaurantService.save(current);
+        BeanUtils.copyProperties(restaurant, current, "id", "paymentMethods", "address", "products", "createdAt");
+        current = restaurantService.save(current);
 
-            return ResponseEntity.ok(current);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
+        return ResponseEntity.ok(current);
     }
 }
