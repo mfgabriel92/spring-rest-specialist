@@ -12,7 +12,7 @@ databaseChangeLog:
                   constraints:
                     primaryKey: true
               - column:
-                  name: description
+                  name: name
                   type: VARCHAR(100)
                   constraints:
                     nullable: true

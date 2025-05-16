@@ -1,16 +1,19 @@
 package com.gabriel.springrestspecialist.api.controller;
 
+import com.gabriel.springrestspecialist.domain.exception.EntityNotFoundException;
 import com.gabriel.springrestspecialist.domain.model.Restaurant;
 import com.gabriel.springrestspecialist.domain.repository.RestaurantRepository;
+import com.gabriel.springrestspecialist.domain.service.RestaurantService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.springframework.http.ResponseEntity.ok;
 
@@ -19,6 +22,7 @@ import static org.springframework.http.ResponseEntity.ok;
 @RequiredArgsConstructor
 public class RestaurantController {
     private final RestaurantRepository restaurantRepository;
+    private final RestaurantService restaurantService;
 
     @GetMapping
     public ResponseEntity<List<Restaurant>> findAll() {
@@ -68,5 +72,30 @@ public class RestaurantController {
         return latest.isPresent()
             ? ok(latest)
             : ok(Optional.empty());
+    }
+
+    @PostMapping
+    public ResponseEntity<?> save(@RequestBody Restaurant restaurant) {
+        try {
+            restaurant = restaurantService.save(restaurant);
+            return ResponseEntity.status(HttpStatus.CREATED).body(restaurant);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<?> save(@PathVariable UUID id, @RequestBody Restaurant restaurant) {
+        try {
+            var current = restaurantRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException(String.format("Restaurant with id %s not found", id)));
+
+            BeanUtils.copyProperties(restaurant, current, "id", "paymentMethods", "createdAt");
+            current = restaurantService.save(current);
+
+            return ResponseEntity.ok(current);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 }
