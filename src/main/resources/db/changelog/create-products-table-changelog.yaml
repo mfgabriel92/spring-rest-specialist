@@ -1,0 +1,37 @@
+databaseChangeLog:
+  - changeSet:
+      id: d885a50e-717d-4f2c-90bd-27da305d0713
+      author: springrestspecialist
+      changes:
+        - createTable:
+            tableName: products
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR(50)
+              - column:
+                  name: description
+                  type: TEXT
+                  constraints:
+                    nullable: true
+              - column:
+                  name: price
+                  type: DECIMAL
+              - column:
+                  name: active
+                  type: BOOL
+                  defaultValueBoolean: false
+              - column:
+                  name: restaurant_id
+                  type: UUID
+        - addForeignKeyConstraint:
+            baseColumnNames: restaurant_id
+            baseTableName: products
+            constraintName: products_restaurants_fk
+            referencedColumnNames: id
+            referencedTableName: restaurants

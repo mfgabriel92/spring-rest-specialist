@@ -15,3 +15,5 @@ databaseChangeLog:
       file: db/changelog/create-restaurants_payment_methods-table-changelog.yaml
   - include:
       file: db/changelog/update-restaurants-add-address-changelog.yaml
+  - include:
+      file: db/changelog/create-products-table-changelog.yaml

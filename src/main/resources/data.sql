@@ -4,6 +4,7 @@ TRUNCATE TABLE cities CASCADE;
 TRUNCATE TABLE restaurants CASCADE;
 TRUNCATE TABLE payment_methods CASCADE;
 TRUNCATE TABLE restaurants_payment_methods CASCADE;
+TRUNCATE TABLE products CASCADE;
 
 INSERT INTO cuisines (id, name)
 VALUES ('d42fcf63-b8fc-4ac4-a3a0-893fa9dbb2a9', 'Italian'),
@@ -395,3 +396,37 @@ VALUES
     ('cb63e348-485b-41dd-b9e9-45c24265883d', '9f235ead-08ac-400a-a8dd-2c8697da8ac7'),
     ('cb63e348-485b-41dd-b9e9-45c24265883d', '63ba1787-1945-422a-b853-facc134f3853'),
     ('cb63e348-485b-41dd-b9e9-45c24265883d', 'be70d168-f8cf-4575-9824-0f5004fdd760');
+
+INSERT INTO products (id, name, description, price, active, restaurant_id)
+VALUES
+    ('f2718bf7-3b40-403a-a35b-703613237eae','Coq au Vin', null, 18.50, true, 'e218974b-16bd-49c5-9af6-7ef2843d6c80'),
+    ('5c6b56a9-aef0-4174-a524-acd2fd9f422d','Duck Confit', null, 22.00, true, 'e218974b-16bd-49c5-9af6-7ef2843d6c80'),
+    ('993a89ba-b52d-4c5f-b67b-79678a2288c9','Ratatouille', null, 14.75, true, 'e218974b-16bd-49c5-9af6-7ef2843d6c80'),
+    ('f794bf19-403d-4cec-b9c3-51f6edf56796','Bouillabaisse', null, 24.30, true, 'e218974b-16bd-49c5-9af6-7ef2843d6c80'),
+    ('4e0c4a23-6256-4af0-8044-bc3cc76c8d74','Spaghetti Carbonara', null, 12.00, true, '2ff391fd-f03f-47b0-8f22-eb735396d381'),
+    ('746fd7c0-94c0-4d84-91b9-4c49c7b1aebc','Lasagna Bolognese', null, 14.00, true, '2ff391fd-f03f-47b0-8f22-eb735396d381'),
+    ('2760b2a0-3133-495b-b099-af6ac2a996b3','Margherita Pizza', null, 10.50, false, '2ff391fd-f03f-47b0-8f22-eb735396d381'),
+    ('0266d927-95e9-4703-955a-bf66742aeb39','Risotto ai Funghi', null, 13.20, true, '2ff391fd-f03f-47b0-8f22-eb735396d381'),
+    ('3f965abe-6b74-4840-8c66-240e27b88209','Quiche Lorraine', null, 11.00, true, 'd0c1c70e-620b-455e-8f1a-9dcf00fbfc25'),
+    ('19c06725-eee9-47c7-8a1e-78ed1efde459','Salade Niçoise', null, 12.50, true, 'd0c1c70e-620b-455e-8f1a-9dcf00fbfc25'),
+    ('241ba1c5-e446-4744-b324-b481a2d1f85b','Tarte Tatin', null, 9.00, true, 'd0c1c70e-620b-455e-8f1a-9dcf00fbfc25'),
+    ('37b0cf4b-de28-4671-8708-f47eeb57842a','Shrimp Tempura', null, 13.40, true, '6f76e734-5927-49cf-ae02-2ec45445495f'),
+    ('07da7602-ea66-4414-a36b-3d4cb6aa268c','Chicken Katsu', null, 12.00, true, '6f76e734-5927-49cf-ae02-2ec45445495f'),
+    ('a9cea7fa-106e-4935-9d2a-3243b38c2e27','Udon Noodle Soup', null, 11.20, true, '6f76e734-5927-49cf-ae02-2ec45445495f'),
+    ('eb8eb3a3-af09-49be-8330-8766165b38ee','Sashimi Platter', null, 19.60, true, '6f76e734-5927-49cf-ae02-2ec45445495f'),
+    ('0463b5dd-3374-4c6b-a92f-c486eeeb5841','Kung Pao Chicken', null, 11.50, false, 'a81d2e9a-bb41-43e1-97da-d775cf8620d5'),
+    ('bc6c5cd2-fdc0-4839-8726-7a6444c22584','Sweet and Sour Pork', null, 10.80, true, 'a81d2e9a-bb41-43e1-97da-d775cf8620d5'),
+    ('9bb19878-8056-4d14-9f3e-b928c82ebe0b','Fried Rice', null, 9.00, true, 'a81d2e9a-bb41-43e1-97da-d775cf8620d5'),
+    ('9614ba5a-ffca-4c01-8822-1a66543c7e2e','Mapo Tofu', null, 12.20, false, 'a81d2e9a-bb41-43e1-97da-d775cf8620d5'),
+    ('1091f160-1c23-4b6a-b82c-4136ccf045d4','Dim Sum Platter', null, 15.00, true, '802b7815-26fa-424f-ab44-78689f168fc5'),
+    ('dcf26625-81c0-4a9a-9aca-57fad5823ef0','Beef Chow Fun', null, 13.00, true, '802b7815-26fa-424f-ab44-78689f168fc5'),
+    ('42e6b398-0a04-4d8d-948d-a90452306192','Hot and Sour Soup', null, 8.00, true, '802b7815-26fa-424f-ab44-78689f168fc5'),
+    ('941c4d9f-51c1-4bb6-a098-4f07270639a2','Green Curry Chicken', null, 13.00, true, '517c882a-c574-4987-b848-c152597378a6'),
+    ('449eff75-3412-4904-9ac5-70f1d030db64','Pad Thai', null, 11.50, true, '517c882a-c574-4987-b848-c152597378a6'),
+    ('e475a618-0cc0-4ed7-b289-33610732674a','Tom Yum Soup', null, 9.50, true, '517c882a-c574-4987-b848-c152597378a6'),
+    ('c4012a71-2eb9-4450-a942-797a8a87d2be','Massaman Curry', null, 13.70, true, 'cb63e348-485b-41dd-b9e9-45c24265883d'),
+    ('0b3b3a41-97b6-4e89-8076-cdd44fc21562','Pineapple Fried Rice', null, 10.90, true, 'cb63e348-485b-41dd-b9e9-45c24265883d'),
+    ('78796aa9-8982-480f-bdb5-9fcb4ac4b21d','Larb Gai', null, 11.10, true, 'cb63e348-485b-41dd-b9e9-45c24265883d'),
+    ('02cbe455-cecf-48e5-a1e4-ed28b481347a','Tacos al Pastor', null, 9.50, true, '1a6c727c-c25e-4188-abea-cc8ed9efaee5'),
+    ('9dc8f668-0ccc-4115-ba7b-3a37f7b9422e','Chicken Enchiladas', null, 11.20, false, '1a6c727c-c25e-4188-abea-cc8ed9efaee5'),
+    ('b1150c0f-8dbd-4abf-ac90-00b5088910f8','Guacamole & Chips', null, 7.50, true, '1a6c727c-c25e-4188-abea-cc8ed9efaee5');
