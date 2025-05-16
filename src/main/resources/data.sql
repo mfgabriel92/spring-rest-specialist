@@ -1,7 +1,7 @@
 TRUNCATE TABLE cuisines CASCADE;
-TRUNCATE TABLE restaurants CASCADE;
 TRUNCATE TABLE states CASCADE;
 TRUNCATE TABLE cities CASCADE;
+TRUNCATE TABLE restaurants CASCADE;
 TRUNCATE TABLE payment_methods CASCADE;
 TRUNCATE TABLE restaurants_payment_methods CASCADE;
 
@@ -11,26 +11,6 @@ VALUES ('d42fcf63-b8fc-4ac4-a3a0-893fa9dbb2a9', 'Italian'),
        ('cc2f75bb-89ed-4d6f-a03c-f09f0f3a41a2', 'Japanese'),
        ('f2e8d739-58ea-4179-b329-4df8d6636c18', 'Chinese'),
        ('7a395d37-5d59-44f1-bb17-d72889d61a45', 'Thai');
-
-INSERT INTO restaurants (id, name, delivery_fee, cuisine_id, created_at, updated_at)
-VALUES ('e218974b-16bd-49c5-9af6-7ef2843d6c80', 'Le Bistro', 8.46, 'c9ecf4cc-bc7d-4b85-a1c0-2c9e9a003fa4',
-        '2017-09-23 11:42:18', '2017-09-23 11:42:18'),
-       ('2ff391fd-f03f-47b0-8f22-eb735396d381', 'Trattoria Roma', 6.87, 'd42fcf63-b8fc-4ac4-a3a0-893fa9dbb2a9',
-        '2015-06-04 04:13:35', '2015-06-04 04:13:35'),
-       ('d0c1c70e-620b-455e-8f1a-9dcf00fbfc25', 'La Provence', 3.13, 'c9ecf4cc-bc7d-4b85-a1c0-2c9e9a003fa4',
-        '2021-12-30 03:59:44', '2021-12-30 03:59:44'),
-       ('6f76e734-5927-49cf-ae02-2ec45445495f', 'Tempura House', 0, 'cc2f75bb-89ed-4d6f-a03c-f09f0f3a41a2',
-        '2019-01-06 07:55:41', '2019-01-06 07:55:41'),
-       ('a81d2e9a-bb41-43e1-97da-d775cf8620d5', 'Golden Wok', 19.04, 'f2e8d739-58ea-4179-b329-4df8d6636c18',
-        '2018-08-20 18:14:26', '2018-08-20 18:14:26'),
-       ('802b7815-26fa-424f-ab44-78689f168fc5', 'Bamboo Leaf', 5.8, 'f2e8d739-58ea-4179-b329-4df8d6636c18',
-        '2016-02-14 10:12:09', '2016-02-14 10:12:09'),
-       ('517c882a-c574-4987-b848-c152597378a6', 'Thai Spice', 14.61, '7a395d37-5d59-44f1-bb17-d72889d61a45',
-        '2022-07-13 15:23:50', '2022-07-13 15:23:50'),
-       ('cb63e348-485b-41dd-b9e9-45c24265883d', 'Bangkok Taste', 17.97, '7a395d37-5d59-44f1-bb17-d72889d61a45',
-        '2020-04-17 22:35:14', '2020-04-17 22:35:14'),
-       ('1a6c727c-c25e-4188-abea-cc8ed9efaee5', 'La Fiesta', 8.78, null,
-        '2024-10-01 03:38:47', '2024-10-01 03:38:47');
 
 INSERT INTO states (id, name)
 VALUES ('842255af-0fa2-4427-84d7-caa370a2dd0c', 'Tuscany'),
@@ -137,7 +117,7 @@ VALUES ('3fc10dbe-ec6e-4061-808d-45f569f824f3', 'Florence', '842255af-0fa2-4427-
        ('d0443818-17ae-4cd3-8129-726832563a0d', 'Brescia', 'f3ed7835-1588-4c23-81dd-c1c8ae4b2bd0'),
        ('d2051be0-8330-4fd6-8aa4-4215b99eef4a', 'Paris', 'a5b6097f-2fb6-4086-9097-bb2025f942cf'),
        ('e43a684e-5aa0-45d7-af42-db044a09763e', 'Versailles', 'a5b6097f-2fb6-4086-9097-bb2025f942cf'),
-       ('66854930-8ffe-4f27-ba21-bc5ee8209bdb', 'Saint-Denis', 'a5b6097f-2fb6-4086-9097-bb2025f942cf'),
+       ('66854930-8ffe-4f27-ba21-bc5ee8209bdb', 'Montfermeil', 'a5b6097f-2fb6-4086-9097-bb2025f942cf'),
        ('721ac442-faac-4b50-a10a-e2ece8cdd3d2', 'Nice', '48795b7a-04ca-4d86-8071-0cdcfd016ccb'),
        ('442156a3-6c49-419a-89d2-7d6eaa7a4b9e', 'Marseille', '48795b7a-04ca-4d86-8071-0cdcfd016ccb'),
        ('37795424-8a69-400e-a8e0-5c0ee4ce5d33', 'Toulon', '48795b7a-04ca-4d86-8071-0cdcfd016ccb'),
@@ -332,6 +312,26 @@ VALUES ('3fc10dbe-ec6e-4061-808d-45f569f824f3', 'Florence', '842255af-0fa2-4427-
        ('a7b82e37-a576-4c7b-945a-1ab0e5a70914', 'Jerusalem', '33f1ab90-b0d2-4400-9e86-3151ec41daeb'),
        ('86f25568-c5ef-495e-9a08-30eb5ae6ea9e', 'Nazareth', '6c9bc157-2e82-4a1b-8f84-d86150462ee9'),
        ('fdb3a087-b0bf-4977-9550-6ef5a925271d', 'Tiberias', '6c9bc157-2e82-4a1b-8f84-d86150462ee9');
+
+INSERT INTO restaurants (id, name, delivery_fee, cuisine_id, created_at, updated_at, address_street, address_apartment_number, address_number, address_zip, address_city_id)
+VALUES ('e218974b-16bd-49c5-9af6-7ef2843d6c80', 'Le Bistro', 8.46, 'c9ecf4cc-bc7d-4b85-a1c0-2c9e9a003fa4',
+        '2017-09-23 11:42:18', '2017-09-23 11:42:18', 'Rue de Verdun', '12A', '33', '93370', '66854930-8ffe-4f27-ba21-bc5ee8209bdb'),
+       ('2ff391fd-f03f-47b0-8f22-eb735396d381', 'Trattoria Roma', 6.87, 'd42fcf63-b8fc-4ac4-a3a0-893fa9dbb2a9',
+        '2015-06-04 04:13:35', '2015-06-04 04:13:35', null, null, null, null, null),
+       ('d0c1c70e-620b-455e-8f1a-9dcf00fbfc25', 'La Provence', 3.13, 'c9ecf4cc-bc7d-4b85-a1c0-2c9e9a003fa4',
+        '2021-12-30 03:59:44', '2021-12-30 03:59:44', null, null, null, null, null),
+       ('6f76e734-5927-49cf-ae02-2ec45445495f', 'Tempura House', 0, 'cc2f75bb-89ed-4d6f-a03c-f09f0f3a41a2',
+        '2019-01-06 07:55:41', '2019-01-06 07:55:41', null, null, null, null, null),
+       ('a81d2e9a-bb41-43e1-97da-d775cf8620d5', 'Golden Wok', 19.04, 'f2e8d739-58ea-4179-b329-4df8d6636c18',
+        '2018-08-20 18:14:26', '2018-08-20 18:14:26', null, null, null, null, null),
+       ('802b7815-26fa-424f-ab44-78689f168fc5', 'Bamboo Leaf', 5.8, 'f2e8d739-58ea-4179-b329-4df8d6636c18',
+        '2016-02-14 10:12:09', '2016-02-14 10:12:09', null, null, null, null, null),
+       ('517c882a-c574-4987-b848-c152597378a6', 'Thai Spice', 14.61, '7a395d37-5d59-44f1-bb17-d72889d61a45',
+        '2022-07-13 15:23:50', '2022-07-13 15:23:50', null, null, null, null, null),
+       ('cb63e348-485b-41dd-b9e9-45c24265883d', 'Bangkok Taste', 17.97, '7a395d37-5d59-44f1-bb17-d72889d61a45',
+        '2020-04-17 22:35:14', '2020-04-17 22:35:14', null, null, null, null, null),
+       ('1a6c727c-c25e-4188-abea-cc8ed9efaee5', 'La Fiesta', 8.78, null,
+        '2024-10-01 03:38:47', '2024-10-01 03:38:47', null, null, null, null, null);
 
 INSERT INTO payment_methods (id, name)
 VALUES

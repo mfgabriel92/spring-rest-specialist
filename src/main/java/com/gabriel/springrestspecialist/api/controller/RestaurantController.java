@@ -29,6 +29,14 @@ public class RestaurantController {
         return ok(restaurantRepository.findAll());
     }
 
+    @GetMapping("{id}")
+    public ResponseEntity<Restaurant> findBId(@PathVariable UUID id) {
+        var restaurant = restaurantRepository.findById(id).orElseThrow(() ->
+            new EntityNotFoundException(String.format("Restaurant with id %s not found", id)));
+
+        return ok(restaurant);
+    }
+
     @GetMapping("containing")
     public ResponseEntity<List<Restaurant>> findByNameContaining(String name) {
         return ok(restaurantRepository.findByNameContaining(name));
@@ -50,11 +58,7 @@ public class RestaurantController {
     }
 
     @GetMapping("delivery-fees-between")
-    public ResponseEntity<List<Restaurant>> findAllByNameLikeAndBetweenDeliveryFees(
-        String name,
-        BigDecimal minDeliveryFee,
-        BigDecimal maxDeliveryFee
-    ) {
+    public ResponseEntity<List<Restaurant>> findAllByNameLikeAndBetweenDeliveryFees(String name, BigDecimal minDeliveryFee, BigDecimal maxDeliveryFee) {
         return ok(restaurantRepository.findAllByNameLikeAndBetweenDeliveryFees(name, minDeliveryFee, maxDeliveryFee));
     }
 

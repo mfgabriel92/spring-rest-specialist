@@ -36,6 +36,9 @@ public class Restaurant {
     )
     private List<PaymentMethod> paymentMethods;
 
+    @Embedded
+    private Address address;
+
     @CreationTimestamp
     private LocalDateTime createdAt;
 

@@ -23,11 +23,6 @@ databaseChangeLog:
                   constraints:
                     nullable: true
               - column:
-                  name: city_id
-                  type: UUID
-                  constraints:
-                    nullable: true
-              - column:
                   name: created_at
                   type: timestamp
               - column:
@@ -39,9 +34,3 @@ databaseChangeLog:
             constraintName: restaurants_cuisines_fk
             referencedColumnNames: id
             referencedTableName: cuisines
-        - addForeignKeyConstraint:
-            baseColumnNames: city_id
-            baseTableName: restaurants
-            constraintName: restaurants_city_fk
-            referencedColumnNames: id
-            referencedTableName: cities

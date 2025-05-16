@@ -1,0 +1,39 @@
+databaseChangeLog:
+  - changeSet:
+      id: 53700a8f-d9c1-4b3e-84a3-974ee2d33b15
+      author: springrestspecialist
+      changes:
+        - addColumn:
+            tableName: restaurants
+            columns:
+              - column:
+                  name: address_street
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: address_apartment_number
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: address_number
+                  type: VARCHAR(10)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: address_zip
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: address_city_id
+                  type: UUID
+                  constraints:
+                    nullable: true
+        - addForeignKeyConstraint:
+            baseColumnNames: address_city_id
+            baseTableName: restaurants
+            constraintName: restaurants_address_cities_id_fk
+            referencedColumnNames: id
+            referencedTableName: cities
