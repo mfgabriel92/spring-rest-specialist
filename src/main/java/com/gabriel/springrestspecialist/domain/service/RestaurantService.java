@@ -1,6 +1,6 @@
 package com.gabriel.springrestspecialist.domain.service;
 
-import com.gabriel.springrestspecialist.domain.exception.ApiException;
+import com.gabriel.springrestspecialist.domain.exception.BusinessLogicException;
 import com.gabriel.springrestspecialist.domain.exception.EntityAlreadyInUseException;
 import com.gabriel.springrestspecialist.domain.exception.EntityNotFoundException;
 import com.gabriel.springrestspecialist.domain.model.Cuisine;
@@ -30,7 +30,7 @@ public class RestaurantService {
         try {
             cuisine = cuisineService.findById(cuisineId);
         } catch (EntityNotFoundException e) {
-            throw new ApiException(String.format("Cuisine with id %s not found", cuisineId));
+            throw new BusinessLogicException(String.format("Cuisine with id %s not found", cuisineId));
         }
 
         restaurant.setCuisine(cuisine);

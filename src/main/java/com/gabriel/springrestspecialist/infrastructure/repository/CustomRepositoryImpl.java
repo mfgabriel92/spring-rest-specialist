@@ -1,19 +1,19 @@
 package com.gabriel.springrestspecialist.infrastructure.repository;
 
-import com.gabriel.springrestspecialist.domain.repository.CustomJpaRepository;
+import com.gabriel.springrestspecialist.domain.repository.CustomRepository;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 
 import javax.persistence.EntityManager;
 import java.util.Optional;
 
-public class CustomJpaRepositoryImpl<T, ID>
+public class CustomRepositoryImpl<T, ID>
     extends SimpleJpaRepository<T, ID>
-    implements CustomJpaRepository<T, ID> {
+    implements CustomRepository<T, ID> {
 
     private final EntityManager entityManager;
 
-    public CustomJpaRepositoryImpl(JpaEntityInformation<T, ?> entityInformation, EntityManager entityManager) {
+    public CustomRepositoryImpl(JpaEntityInformation<T, ?> entityInformation, EntityManager entityManager) {
         super(entityInformation, entityManager);
         this.entityManager = entityManager;
     }
