@@ -1,12 +1,10 @@
 package com.gabriel.springrestspecialist.api.controller;
 
-import com.gabriel.springrestspecialist.domain.exception.EntityNotFoundException;
 import com.gabriel.springrestspecialist.domain.model.Restaurant;
 import com.gabriel.springrestspecialist.domain.repository.RestaurantRepository;
 import com.gabriel.springrestspecialist.domain.service.RestaurantService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +13,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.ResponseEntity.noContent;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
@@ -76,13 +76,9 @@ public class RestaurantController {
     }
 
     @PostMapping
-    public ResponseEntity<?> save(@RequestBody Restaurant restaurant) {
-        try {
-            restaurant = restaurantService.save(restaurant);
-            return ResponseEntity.status(HttpStatus.CREATED).body(restaurant);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
+    public ResponseEntity<Restaurant> save(@RequestBody Restaurant restaurant) {
+        restaurant = restaurantService.save(restaurant);
+        return ResponseEntity.status(CREATED).body(restaurant);
     }
 
     @PutMapping("{id}")
@@ -92,6 +88,12 @@ public class RestaurantController {
         BeanUtils.copyProperties(restaurant, current, "id", "paymentMethods", "address", "products", "createdAt");
         current = restaurantService.save(current);
 
-        return ResponseEntity.ok(current);
+        return ok(current);
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable UUID id) {
+        restaurantService.deleteById(id);
+        return noContent().build();
     }
 }
