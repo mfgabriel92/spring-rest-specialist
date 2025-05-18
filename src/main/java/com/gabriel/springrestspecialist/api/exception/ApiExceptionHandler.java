@@ -7,6 +7,7 @@ import com.gabriel.springrestspecialist.domain.exception.ExceptionType;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.ServletWebRequest;
@@ -40,19 +41,27 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return super.handleExceptionInternal(ex, body, headers, status, request);
     }
 
-    private ResponseEntity<?> handleExceptionInternal(Exception ex, ExceptionType exType, WebRequest request) {
+    @Override
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        return handleExceptionInternal(ex, MESSAGE_NOT_READABLE, request);
+    }
+
+    private ResponseEntity<Object> handleExceptionInternal(Exception ex, ExceptionType exType, WebRequest request) {
         var body = exceptionBuilder(ex, exType, request).build();
         return handleExceptionInternal(ex, body, new HttpHeaders(), exType.getStatus(), request);
     }
 
     private ExceptionMessage.ExceptionMessageBuilder exceptionBuilder(Exception ex, ExceptionType exType, WebRequest webRequest) {
         var url = getRequest(webRequest).getRequestURL().toString();
+        var details = exType.getDetails() != null
+            ? exType.getDetails()
+            : ex.getMessage();
 
         return ExceptionMessage.builder()
             .status(exType.getStatus().value())
             .type(getExceptionType(exType, webRequest))
             .title(exType.getStatus().getReasonPhrase())
-            .detail(ex.getMessage())
+            .detail(details)
             .url(url)
             .timestamp(LocalDateTime.now());
     }
