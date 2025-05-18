@@ -30,6 +30,11 @@ import static com.gabriel.springrestspecialist.domain.exception.ExceptionType.*;
 
 @ControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<?> handleUncaughtExceptions(Exception ex, WebRequest request) {
+        return handleExceptionInternal(ex, INTERNAL_SERVER_ERROR, "An unknown error has happened. Please try again", request);
+    }
+
     @ExceptionHandler(BusinessLogicException.class)
     public ResponseEntity<?> handleBusinessLogicException(BusinessLogicException ex, WebRequest request) {
         return handleExceptionInternal(ex, BAD_REQUEST, null, request);
