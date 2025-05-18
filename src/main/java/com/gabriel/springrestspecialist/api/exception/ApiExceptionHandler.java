@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
@@ -74,6 +75,12 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         }
 
         return handleExceptionInternal(ex, BAD_REQUEST, ex.getMessage(), request);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        var detail = String.format("The requested resource '%s' does not exist", ex.getRequestURL());
+        return handleExceptionInternal(ex, NOT_FOUND, detail, request);
     }
 
     private ResponseEntity<Object> handleJsonParseException(JsonParseException ex, ExceptionType exType, WebRequest request) {
