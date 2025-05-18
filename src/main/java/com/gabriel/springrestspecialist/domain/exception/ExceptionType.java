@@ -13,7 +13,10 @@ public enum ExceptionType {
     CONFLICT(HttpStatus.CONFLICT, "Conflict"),
     MESSAGE_NOT_READABLE(HttpStatus.BAD_REQUEST, "Message Not Readable"),
     JSON_PARSE(HttpStatus.BAD_REQUEST, "JSON Parse Error"),
-    INVALID_FORMAT(HttpStatus.BAD_REQUEST, "Invalid Format");
+    INVALID_FORMAT(HttpStatus.BAD_REQUEST, "Invalid Format"),
+    UNRECOGNIZED_PROPERTY(HttpStatus.BAD_REQUEST, "Unrecognized Property"),
+    IGNORED_PROPERTY(HttpStatus.BAD_REQUEST, "Unrecognized Property"),
+    TYPE_MISMATCH(HttpStatus.BAD_REQUEST, "Type Mistmach");
 
     private final HttpStatus status;
     private final String title;

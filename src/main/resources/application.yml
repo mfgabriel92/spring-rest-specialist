@@ -16,3 +16,7 @@ spring:
   sql:
     init:
       mode: always
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+      fail-on-ignored-properties: true

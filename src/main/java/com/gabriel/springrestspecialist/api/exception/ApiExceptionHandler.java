@@ -1,12 +1,15 @@
 package com.gabriel.springrestspecialist.api.exception;
 
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.exc.IgnoredPropertyException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 import com.gabriel.springrestspecialist.domain.exception.BusinessLogicException;
 import com.gabriel.springrestspecialist.domain.exception.EntityAlreadyInUseException;
 import com.gabriel.springrestspecialist.domain.exception.EntityNotFoundException;
 import com.gabriel.springrestspecialist.domain.exception.ExceptionType;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
@@ -48,16 +52,28 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         var rootCause = ExceptionUtils.getRootCause(ex);
-        System.out.println(rootCause.toString());
 
         if (rootCause instanceof JsonParseException e) {
             return handleJsonParseException(e, JSON_PARSE, request);
         } else if (rootCause instanceof InvalidFormatException e) {
             return handleInvalidFormatException(e, INVALID_FORMAT, request);
+        } else if (rootCause instanceof UnrecognizedPropertyException e) {
+            return handleUnrecognizedPropertyException(e, UNRECOGNIZED_PROPERTY, request);
+        } else if (rootCause instanceof IgnoredPropertyException e) {
+            return handleIgnoredPropertyException(e, IGNORED_PROPERTY, request);
         }
 
         var details = "The request body is invalid. Check for syntax error and try again";
         return handleExceptionInternal(ex, MESSAGE_NOT_READABLE, details, request);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleTypeMismatch(TypeMismatchException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        if (ex instanceof MethodArgumentTypeMismatchException e) {
+            return handleMethodArgumentTypeMismatch(e, TYPE_MISMATCH, request);
+        }
+
+        return handleExceptionInternal(ex, BAD_REQUEST, ex.getMessage(), request);
     }
 
     private ResponseEntity<Object> handleJsonParseException(JsonParseException ex, ExceptionType exType, WebRequest request) {
@@ -69,13 +85,31 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         var propertyName = ex.getPath().stream()
             .map(ref -> ref.getFieldName())
             .collect(Collectors.joining("."));
-        var propertyValue = ex.getValue();
-        var propertyExpectedType = ex.getTargetType().getSimpleName();
         var details = String.format(
             "The property '%s' has received an invalid value '%s', when it expects the type '%s'. Please correct it and try again",
             propertyName,
-            propertyValue,
-            propertyExpectedType
+            ex.getValue(),
+            ex.getTargetType().getSimpleName()
+        );
+        return handleExceptionInternal(ex, exType, details, request);
+    }
+
+    private ResponseEntity<Object> handleUnrecognizedPropertyException(UnrecognizedPropertyException ex, ExceptionType exType, WebRequest request) {
+        var details = String.format("The property '%s' does not exist", ex.getPropertyName());
+        return handleExceptionInternal(ex, exType, details, request);
+    }
+
+    private ResponseEntity<Object> handleIgnoredPropertyException(IgnoredPropertyException ex, ExceptionType exType, WebRequest request) {
+        var details = String.format("The property '%s' does not exist", ex.getPropertyName());
+        return handleExceptionInternal(ex, exType, details, request);
+    }
+
+    private ResponseEntity<Object> handleMethodArgumentTypeMismatch(MethodArgumentTypeMismatchException ex, ExceptionType exType, WebRequest request) {
+        var details = String.format(
+            "The parameter '%s' has received an invalid value '%s', when it expects the type '%s'. Please correct it and try again",
+            ex.getName(),
+            ex.getValue(),
+            ex.getRequiredType().getSimpleName()
         );
         return handleExceptionInternal(ex, exType, details, request);
     }
@@ -94,7 +128,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return ExceptionMessage.builder()
             .status(exType.getStatus().value())
             .type(getExceptionType(exType, webRequest))
-            .title(exType.getStatus().getReasonPhrase())
+            .title(exType.getTitle())
             .detail(details)
             .url(url)
             .timestamp(LocalDateTime.now());
@@ -105,7 +139,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         var scheme = request.getScheme();
         var serverName = request.getServerName();
         var serverPort = request.getServerPort();
-        var uri = exType.getStatus().getReasonPhrase().toLowerCase().replaceAll(" ", "-");
+        var uri = exType.getTitle().toLowerCase().replaceAll(" ", "-");
 
         return String.format("%s://%s:%s/errors/%s", scheme, serverName, serverPort, uri);
     }
