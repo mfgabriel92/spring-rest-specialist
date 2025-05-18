@@ -20,7 +20,7 @@ public class RestaurantService {
 
     public Restaurant findById(UUID id) {
         return restaurantRepository.findById(id).orElseThrow(() ->
-            new EntityNotFoundException(String.format("Restaurant with id %s not found", id)));
+            new EntityNotFoundException(String.format("Restaurant '%s' not found", id)));
     }
 
     public Restaurant save(Restaurant restaurant) {
@@ -30,7 +30,7 @@ public class RestaurantService {
         try {
             cuisine = cuisineService.findById(cuisineId);
         } catch (EntityNotFoundException e) {
-            throw new BusinessLogicException(String.format("Cuisine with id %s not found", cuisineId));
+            throw new BusinessLogicException(e.getMessage());
         }
 
         restaurant.setCuisine(cuisine);
@@ -42,7 +42,7 @@ public class RestaurantService {
         try {
             restaurantRepository.deleteById(cuisine.getId());
         } catch (DataIntegrityViolationException e) {
-            throw new EntityAlreadyInUseException(String.format("Cannot delete restaurant %s because it is being used by another entity", id));
+            throw new EntityAlreadyInUseException("Cannot delete restaurant because it is being used by another entity");
         }
     }
 }

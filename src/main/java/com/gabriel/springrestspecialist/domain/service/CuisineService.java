@@ -17,7 +17,7 @@ public class CuisineService {
 
     public Cuisine findById(UUID id) {
         return cuisineRepository.findById(id).orElseThrow(() ->
-            new EntityNotFoundException(String.format("Cuisine with id %s not found", id)));
+            new EntityNotFoundException(String.format("Cuisine '%s' not found", id)));
     }
 
     public void deleteById(UUID id) {
@@ -25,7 +25,7 @@ public class CuisineService {
         try {
             cuisineRepository.deleteById(cuisine.getId());
         } catch (DataIntegrityViolationException e) {
-            throw new EntityAlreadyInUseException(String.format("Cannot delete cuisine %s because it is being used by another entity", id));
+            throw new EntityAlreadyInUseException("Cannot delete cuisine because it is being used by another entity");
         }
     }
 }
