@@ -7,12 +7,14 @@ import org.springframework.http.HttpStatus;
 @Getter
 @AllArgsConstructor
 public enum ExceptionType {
-    BAD_REQUEST(HttpStatus.BAD_REQUEST, "Bad Request", null),
-    NOT_FOUND(HttpStatus.NOT_FOUND, "Not Found", null),
-    CONFLICT(HttpStatus.CONFLICT, "Conflict", null),
-    MESSAGE_NOT_READABLE(HttpStatus.BAD_REQUEST, "Message Not Readable", "The request body is invalid. Check for syntax error and try again");
+    INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Server Error"),
+    BAD_REQUEST(HttpStatus.BAD_REQUEST, "Bad Request"),
+    NOT_FOUND(HttpStatus.NOT_FOUND, "Not Found"),
+    CONFLICT(HttpStatus.CONFLICT, "Conflict"),
+    MESSAGE_NOT_READABLE(HttpStatus.BAD_REQUEST, "Message Not Readable"),
+    JSON_PARSE(HttpStatus.BAD_REQUEST, "JSON Parse Error"),
+    INVALID_FORMAT(HttpStatus.BAD_REQUEST, "Invalid Format");
 
     private final HttpStatus status;
     private final String title;
-    private final String details;
 }

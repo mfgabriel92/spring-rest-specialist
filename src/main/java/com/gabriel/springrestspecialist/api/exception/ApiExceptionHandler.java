@@ -1,9 +1,12 @@
 package com.gabriel.springrestspecialist.api.exception;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.gabriel.springrestspecialist.domain.exception.BusinessLogicException;
 import com.gabriel.springrestspecialist.domain.exception.EntityAlreadyInUseException;
 import com.gabriel.springrestspecialist.domain.exception.EntityNotFoundException;
 import com.gabriel.springrestspecialist.domain.exception.ExceptionType;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +19,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
+import java.util.stream.Collectors;
 
 import static com.gabriel.springrestspecialist.domain.exception.ExceptionType.*;
 
@@ -23,17 +27,17 @@ import static com.gabriel.springrestspecialist.domain.exception.ExceptionType.*;
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(BusinessLogicException.class)
     public ResponseEntity<?> handleBusinessLogicException(BusinessLogicException ex, WebRequest request) {
-        return handleExceptionInternal(ex, BAD_REQUEST, request);
+        return handleExceptionInternal(ex, BAD_REQUEST, null, request);
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<?> handleEntityNotFoundException(EntityNotFoundException ex, WebRequest request) {
-        return handleExceptionInternal(ex, NOT_FOUND, request);
+        return handleExceptionInternal(ex, NOT_FOUND, null, request);
     }
 
     @ExceptionHandler(EntityAlreadyInUseException.class)
     public ResponseEntity<?> handleEntityNotFoundException(EntityAlreadyInUseException ex, WebRequest request) {
-        return handleExceptionInternal(ex, CONFLICT, request);
+        return handleExceptionInternal(ex, CONFLICT, null, request);
     }
 
     @Override
@@ -43,18 +47,48 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        return handleExceptionInternal(ex, MESSAGE_NOT_READABLE, request);
+        var rootCause = ExceptionUtils.getRootCause(ex);
+        System.out.println(rootCause.toString());
+
+        if (rootCause instanceof JsonParseException e) {
+            return handleJsonParseException(e, JSON_PARSE, request);
+        } else if (rootCause instanceof InvalidFormatException e) {
+            return handleInvalidFormatException(e, INVALID_FORMAT, request);
+        }
+
+        var details = "The request body is invalid. Check for syntax error and try again";
+        return handleExceptionInternal(ex, MESSAGE_NOT_READABLE, details, request);
     }
 
-    private ResponseEntity<Object> handleExceptionInternal(Exception ex, ExceptionType exType, WebRequest request) {
-        var body = exceptionBuilder(ex, exType, request).build();
+    private ResponseEntity<Object> handleJsonParseException(JsonParseException ex, ExceptionType exType, WebRequest request) {
+        var details = "The request JSON format contains syntax errors. Please correct it and try again";
+        return handleExceptionInternal(ex, exType, details, request);
+    }
+
+    private ResponseEntity<Object> handleInvalidFormatException(InvalidFormatException ex, ExceptionType exType, WebRequest request) {
+        var propertyName = ex.getPath().stream()
+            .map(ref -> ref.getFieldName())
+            .collect(Collectors.joining("."));
+        var propertyValue = ex.getValue();
+        var propertyExpectedType = ex.getTargetType().getSimpleName();
+        var details = String.format(
+            "The property '%s' has received an invalid value '%s', when it expects the type '%s'. Please correct it and try again",
+            propertyName,
+            propertyValue,
+            propertyExpectedType
+        );
+        return handleExceptionInternal(ex, exType, details, request);
+    }
+
+    private ResponseEntity<Object> handleExceptionInternal(Exception ex, ExceptionType exType, String details, WebRequest request) {
+        var body = exceptionBuilder(ex, exType, details, request).build();
         return handleExceptionInternal(ex, body, new HttpHeaders(), exType.getStatus(), request);
     }
 
-    private ExceptionMessage.ExceptionMessageBuilder exceptionBuilder(Exception ex, ExceptionType exType, WebRequest webRequest) {
+    private ExceptionMessage.ExceptionMessageBuilder exceptionBuilder(Exception ex, ExceptionType exType, String details, WebRequest webRequest) {
         var url = getRequest(webRequest).getRequestURL().toString();
-        var details = exType.getDetails() != null
-            ? exType.getDetails()
+        details = details != null
+            ? details
             : ex.getMessage();
 
         return ExceptionMessage.builder()
