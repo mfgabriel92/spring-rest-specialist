@@ -9,9 +9,13 @@ databaseChangeLog:
               - column:
                   name: restaurant_id
                   type: UUID
+                  constraints:
+                    nullable: false
               - column:
                   name: payment_method_id
                   type: UUID
+                  constraints:
+                    nullable: false
         - addPrimaryKey:
             tableName: restaurants_payment_methods
             columnNames: restaurant_id, payment_method_id

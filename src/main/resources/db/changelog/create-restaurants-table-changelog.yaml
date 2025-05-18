@@ -11,17 +11,20 @@ databaseChangeLog:
                   type: UUID
                   constraints:
                     primaryKey: true
+                    nullable: false
               - column:
                   name: name
                   type: VARCHAR(50)
+                  constraints:
+                    nullable: false
               - column:
                   name: delivery_fee
                   type: DECIMAL
+                  constraints:
+                    nullable: false
               - column:
                   name: cuisine_id
                   type: UUID
-                  constraints:
-                    nullable: true
               - column:
                   name: created_at
                   type: TIMESTAMP

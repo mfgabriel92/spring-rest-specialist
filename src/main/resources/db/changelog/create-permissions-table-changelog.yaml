@@ -14,8 +14,8 @@ databaseChangeLog:
               - column:
                   name: name
                   type: VARCHAR(15)
+                  constraints:
+                    nullable: false
               - column:
                   name: description
                   type: VARCHAR
-                  constraints:
-                    nullable: true

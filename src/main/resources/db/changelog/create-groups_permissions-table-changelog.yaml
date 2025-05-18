@@ -9,9 +9,13 @@ databaseChangeLog:
               - column:
                   name: group_id
                   type: UUID
+                  constraints:
+                    nullable: false
               - column:
                   name: permission_id
                   type: UUID
+                  constraints:
+                    nullable: false
         - addPrimaryKey:
             tableName: groups_permissions
             columnNames: group_id, permission_id

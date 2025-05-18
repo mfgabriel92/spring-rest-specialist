@@ -11,8 +11,9 @@ databaseChangeLog:
                   type: UUID
                   constraints:
                     primaryKey: true
+                    nullable: false
               - column:
                   name: name
                   type: VARCHAR(100)
                   constraints:
-                    nullable: true
+                    nullable: false

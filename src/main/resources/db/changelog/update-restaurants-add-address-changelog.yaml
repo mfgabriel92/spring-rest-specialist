@@ -9,28 +9,18 @@ databaseChangeLog:
               - column:
                   name: address_street
                   type: VARCHAR(50)
-                  constraints:
-                    nullable: true
               - column:
                   name: address_apartment_number
                   type: VARCHAR(50)
-                  constraints:
-                    nullable: true
               - column:
                   name: address_number
                   type: VARCHAR(10)
-                  constraints:
-                    nullable: true
               - column:
                   name: address_zip
                   type: VARCHAR(50)
-                  constraints:
-                    nullable: true
               - column:
                   name: address_city_id
                   type: UUID
-                  constraints:
-                    nullable: true
         - addForeignKeyConstraint:
             baseColumnNames: address_city_id
             baseTableName: restaurants

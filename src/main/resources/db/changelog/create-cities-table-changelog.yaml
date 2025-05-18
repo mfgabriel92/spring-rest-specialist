@@ -11,12 +11,17 @@ databaseChangeLog:
                   type: UUID
                   constraints:
                     primaryKey: true
+                    nullable: false
               - column:
                   name: name
                   type: VARCHAR
+                  constraints:
+                    nullable: false
               - column:
                   name: state_id
                   type: UUID
+                  constraints:
+                    nullable: false
         - addForeignKeyConstraint:
             baseColumnNames: state_id
             baseTableName: cities
