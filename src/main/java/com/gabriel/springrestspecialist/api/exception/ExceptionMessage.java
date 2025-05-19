@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @JsonInclude(Include.NON_NULL)
 @Getter
@@ -17,6 +18,14 @@ public class ExceptionMessage {
     private String type;
     private String title;
     private String detail;
+    private List<Field> fields;
     private String url;
     private LocalDateTime timestamp;
+
+    @Getter
+    @Builder
+    public static class Field {
+        private String name;
+        private String error;
+    }
 }

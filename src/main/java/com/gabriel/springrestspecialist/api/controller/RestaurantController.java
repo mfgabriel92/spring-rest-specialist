@@ -8,6 +8,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
@@ -76,7 +77,7 @@ public class RestaurantController {
     }
 
     @PostMapping
-    public ResponseEntity<Restaurant> save(@RequestBody Restaurant restaurant) {
+    public ResponseEntity<Restaurant> save(@Valid @RequestBody Restaurant restaurant) {
         restaurant = restaurantService.save(restaurant);
         return ResponseEntity.status(CREATED).body(restaurant);
     }

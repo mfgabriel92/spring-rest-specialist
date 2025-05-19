@@ -16,7 +16,8 @@ public enum ExceptionType {
     INVALID_FORMAT(HttpStatus.BAD_REQUEST, "Invalid Format"),
     UNRECOGNIZED_PROPERTY(HttpStatus.BAD_REQUEST, "Unrecognized Property"),
     IGNORED_PROPERTY(HttpStatus.BAD_REQUEST, "Unrecognized Property"),
-    TYPE_MISMATCH(HttpStatus.BAD_REQUEST, "Type Mistmach");
+    TYPE_MISMATCH(HttpStatus.BAD_REQUEST, "Type Mistmach"),
+    VALIDATION_ERROR(HttpStatus.BAD_REQUEST, "Validation Error");
 
     private final HttpStatus status;
     private final String title;

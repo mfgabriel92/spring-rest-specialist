@@ -14,6 +14,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.ServletWebRequest;
@@ -24,12 +25,24 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.gabriel.springrestspecialist.domain.exception.ExceptionType.*;
 
 @ControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
+    private static List<ExceptionMessage.Field> getFieldsWithErrors(MethodArgumentNotValidException ex) {
+        return ex.getBindingResult()
+            .getFieldErrors()
+            .stream()
+            .map(f -> ExceptionMessage.Field.builder()
+                .name(f.getField())
+                .error(f.getDefaultMessage())
+                .build()
+            ).collect(Collectors.toList());
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleUncaughtExceptions(Exception ex, WebRequest request) {
         return handleExceptionInternal(ex, INTERNAL_SERVER_ERROR, "An unknown error has happened. Please try again", request);
@@ -86,6 +99,15 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         var detail = String.format("The requested resource '%s' does not exist", ex.getRequestURL());
         return handleExceptionInternal(ex, NOT_FOUND, detail, request);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        var exType = VALIDATION_ERROR;
+        var body = exceptionBuilder(ex, exType, "One or more fields contain errors. Please correct them and try again", request)
+            .fields(getFieldsWithErrors(ex))
+            .build();
+        return handleExceptionInternal(ex, body, new HttpHeaders(), exType.getStatus(), request);
     }
 
     private ResponseEntity<Object> handleJsonParseException(JsonParseException ex, ExceptionType exType, WebRequest request) {
