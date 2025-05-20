@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -25,6 +26,8 @@ public class Restaurant {
 
     private BigDecimal deliveryFee;
 
+	@Valid
+	@NotNull
     @ManyToOne
     @JoinColumn
     private Cuisine cuisine;
