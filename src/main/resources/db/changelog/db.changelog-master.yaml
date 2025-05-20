@@ -25,3 +25,7 @@ databaseChangeLog:
       file: db/changelog/create-users-table-changelog.yaml
   - include:
       file: db/changelog/create-users_groups-table-changelog.yaml
+  - include:
+      file: db/changelog/create-orders-table-changelog.yaml
+  - include:
+      file: db/changelog/create-order_items-table-changelog.yaml

@@ -1,0 +1,106 @@
+databaseChangeLog:
+  - changeSet:
+      id: ec319d55-77bf-4f38-9d64-2586508ba095
+      author: springrestspecialist
+      changes:
+        - createTable:
+            tableName: orders
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: subtotal
+                  type: DECIMAL
+                  constraints:
+                    nullable: false
+              - column:
+                  name: delivery_fee
+                  type: DECIMAL
+                  constraints:
+                    nullable: false
+              - column:
+                  name: grand_total
+                  type: DECIMAL
+                  constraints:
+                    nullable: false
+              - column:
+                  name: address_street
+                  type: VARCHAR(50)
+              - column:
+                  name: address_apartment_number
+                  type: VARCHAR(10)
+              - column:
+                  name: address_number
+                  type: VARCHAR(10)
+              - column:
+                  name: address_city_id
+                  type: UUID
+              - column:
+                  name: address_zip
+                  type: VARCHAR(15)
+              - column:
+                  name: order_staus
+                  type: VARCHAR(10)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: payment_method_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: restaurant_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: confirmed_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: delivered_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: cancelled_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseColumnNames: payment_method_id
+            baseTableName: orders
+            constraintName: payment_method_id_orders_fk
+            referencedColumnNames: id
+            referencedTableName: payment_methods
+        - addForeignKeyConstraint:
+            baseColumnNames: restaurant_id
+            baseTableName: orders
+            constraintName: restaurants_orders_fk
+            referencedColumnNames: id
+            referencedTableName: restaurants
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: orders
+            constraintName: users_orders_fk
+            referencedColumnNames: id
+            referencedTableName: users

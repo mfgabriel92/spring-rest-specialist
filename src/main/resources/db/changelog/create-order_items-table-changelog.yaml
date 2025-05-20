@@ -1,0 +1,54 @@
+databaseChangeLog:
+  - changeSet:
+      id: 4a7050ad-0bfa-4a6a-a621-f0aece73d4ef
+      author: springrestspecialist
+      changes:
+        - createTable:
+            tableName: order_items
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: unit_price
+                  type: DECIMAL
+                  constraints:
+                    nullable: false
+              - column:
+                  name: grand_total
+                  type: DECIMAL
+                  constraints:
+                    nullable: false
+              - column:
+                  name: quantity
+                  type: INTEGER
+                  constraints:
+                    nullable: false
+              - column:
+                  name: obs
+                  type: VARCHAR(255)
+              - column:
+                  name: order_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseColumnNames: order_id
+            baseTableName: order_items
+            constraintName: order_items_orders_fk
+            referencedColumnNames: id
+            referencedTableName: orders
+        - addForeignKeyConstraint:
+            baseColumnNames: product_id
+            baseTableName: order_items
+            constraintName: order_items_products_fk
+            referencedColumnNames: id
+            referencedTableName: products
