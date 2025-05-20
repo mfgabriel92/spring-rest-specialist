@@ -8,8 +8,11 @@ import com.gabriel.springrestspecialist.domain.exception.BusinessLogicException;
 import com.gabriel.springrestspecialist.domain.exception.EntityAlreadyInUseException;
 import com.gabriel.springrestspecialist.domain.exception.EntityNotFoundException;
 import com.gabriel.springrestspecialist.domain.exception.ExceptionType;
+import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.TypeMismatchException;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,17 +34,9 @@ import java.util.stream.Collectors;
 import static com.gabriel.springrestspecialist.domain.exception.ExceptionType.*;
 
 @ControllerAdvice
+@AllArgsConstructor
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
-    private static List<ExceptionMessage.Field> getFieldsWithErrors(MethodArgumentNotValidException ex) {
-        return ex.getBindingResult()
-            .getFieldErrors()
-            .stream()
-            .map(f -> ExceptionMessage.Field.builder()
-                .name(f.getField())
-                .error(f.getDefaultMessage())
-                .build()
-            ).collect(Collectors.toList());
-    }
+    private final MessageSource messageSource;
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleUncaughtExceptions(Exception ex, WebRequest request) {
@@ -180,5 +175,19 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
     private HttpServletRequest getRequest(WebRequest request) {
         return ((ServletWebRequest) request).getRequest();
+    }
+
+    private List<ExceptionMessage.Field> getFieldsWithErrors(MethodArgumentNotValidException ex) {
+        return ex.getBindingResult()
+            .getFieldErrors()
+            .stream()
+            .map(f -> {
+                    var message = messageSource.getMessage(f, LocaleContextHolder.getLocale());
+                    return ExceptionMessage.Field.builder()
+                        .name(f.getField())
+                        .error(message)
+                        .build();
+                }
+            ).collect(Collectors.toList());
     }
 }
