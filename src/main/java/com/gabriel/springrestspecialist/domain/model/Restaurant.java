@@ -29,6 +29,7 @@ public class Restaurant {
     @NotBlank
     private String name;
 
+    @NotNull
     private BigDecimal deliveryFee;
 
     @Valid
