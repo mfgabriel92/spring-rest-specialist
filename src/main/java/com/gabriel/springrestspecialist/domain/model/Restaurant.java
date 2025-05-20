@@ -1,13 +1,16 @@
 package com.gabriel.springrestspecialist.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
+import com.gabriel.springrestspecialist.Groups;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.groups.ConvertGroup;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,7 +18,8 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "restaurants")
-@Data
+@Getter
+@Setter
 public class Restaurant {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,8 +30,9 @@ public class Restaurant {
 
     private BigDecimal deliveryFee;
 
-	@Valid
-	@NotNull
+    @Valid
+    @NotNull
+    @ConvertGroup(to = Groups.CuisineId.class)
     @ManyToOne
     @JoinColumn
     private Cuisine cuisine;

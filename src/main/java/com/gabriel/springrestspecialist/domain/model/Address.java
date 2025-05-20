@@ -1,6 +1,7 @@
 package com.gabriel.springrestspecialist.domain.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -8,7 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Embeddable
-@Data
+@Getter
+@Setter
 public class Address {
     @Column(name = "address_street")
     private String street;
