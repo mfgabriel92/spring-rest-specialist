@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gabriel.springrestspecialist.core.validation.DeliveryFee;
 import com.gabriel.springrestspecialist.core.validation.Groups;
 import com.gabriel.springrestspecialist.core.validation.Multiple;
+import com.gabriel.springrestspecialist.core.validation.ZeroValueIncludesFlag;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -19,6 +20,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+@ZeroValueIncludesFlag(sourceProperty = "deliveryFee", targetProperty = "name", flagValue = "Free Delivery - ")
 @Entity
 @Table(name = "restaurants")
 @Getter
