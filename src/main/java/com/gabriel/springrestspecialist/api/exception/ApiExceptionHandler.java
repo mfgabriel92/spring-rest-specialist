@@ -17,6 +17,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -100,7 +101,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         var exType = VALIDATION_ERROR;
         var body = exceptionBuilder(ex, exType, "One or more fields contain errors. Please correct them and try again", request)
-            .fields(getFieldsWithErrors(ex))
+            .errors(getErrors(ex))
             .build();
         return handleExceptionInternal(ex, body, new HttpHeaders(), exType.getStatus(), request);
     }
@@ -177,14 +178,20 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return ((ServletWebRequest) request).getRequest();
     }
 
-    private List<ExceptionMessage.Field> getFieldsWithErrors(MethodArgumentNotValidException ex) {
+    private List<ExceptionMessage.Error> getErrors(MethodArgumentNotValidException ex) {
         return ex.getBindingResult()
-            .getFieldErrors()
+            .getAllErrors()
             .stream()
-            .map(f -> {
-                    var message = messageSource.getMessage(f, LocaleContextHolder.getLocale());
-                    return ExceptionMessage.Field.builder()
-                        .name(f.getField())
+            .map(objError -> {
+                    var message = messageSource.getMessage(objError, LocaleContextHolder.getLocale());
+                    var name = objError.getObjectName();
+
+                    if (objError instanceof FieldError) {
+                        name = ((FieldError) objError).getField();
+                    }
+
+                    return ExceptionMessage.Error.builder()
+                        .name(name)
                         .error(message)
                         .build();
                 }

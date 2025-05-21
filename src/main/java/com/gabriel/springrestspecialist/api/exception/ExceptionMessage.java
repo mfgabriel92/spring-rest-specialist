@@ -18,13 +18,13 @@ public class ExceptionMessage {
     private String type;
     private String title;
     private String detail;
-    private List<Field> fields;
+    private List<Error> errors;
     private String url;
     private LocalDateTime timestamp;
 
     @Getter
     @Builder
-    public static class Field {
+    public static class Error {
         private String name;
         private String error;
     }
