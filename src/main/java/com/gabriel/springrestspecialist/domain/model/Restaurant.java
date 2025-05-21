@@ -1,7 +1,9 @@
 package com.gabriel.springrestspecialist.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.gabriel.springrestspecialist.Groups;
+import com.gabriel.springrestspecialist.core.validation.DeliveryFee;
+import com.gabriel.springrestspecialist.core.validation.Groups;
+import com.gabriel.springrestspecialist.core.validation.Multiple;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -30,6 +32,8 @@ public class Restaurant {
     private String name;
 
     @NotNull
+    @DeliveryFee
+    @Multiple(number = 5)
     private BigDecimal deliveryFee;
 
     @Valid

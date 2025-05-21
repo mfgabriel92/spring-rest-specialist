@@ -1,7 +1,7 @@
 package com.gabriel.springrestspecialist.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.gabriel.springrestspecialist.Groups;
+import com.gabriel.springrestspecialist.core.validation.Groups;
 import lombok.Getter;
 import lombok.Setter;
 
