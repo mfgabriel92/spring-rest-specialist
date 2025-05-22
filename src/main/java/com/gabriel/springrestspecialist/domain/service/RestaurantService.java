@@ -9,6 +9,7 @@ import com.gabriel.springrestspecialist.domain.repository.RestaurantRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -23,6 +24,7 @@ public class RestaurantService {
             new EntityNotFoundException(String.format("Restaurant '%s' not found", id)));
     }
 
+    @Transactional
     public Restaurant save(Restaurant restaurant) {
         var cuisineId = restaurant.getCuisine().getId();
         Cuisine cuisine;
@@ -37,6 +39,7 @@ public class RestaurantService {
         return restaurantRepository.save(restaurant);
     }
 
+    @Transactional
     public void deleteById(UUID id) {
         var cuisine = findById(id);
         try {
