@@ -1,6 +1,5 @@
 package com.gabriel.springrestspecialist.domain.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gabriel.springrestspecialist.core.validation.DeliveryFee;
 import com.gabriel.springrestspecialist.core.validation.Groups;
 import com.gabriel.springrestspecialist.core.validation.Multiple;
@@ -45,7 +44,6 @@ public class Restaurant {
     @JoinColumn
     private Cuisine cuisine;
 
-    @JsonIgnore
     @ManyToMany
     @JoinTable(
         name = "restaurants_payment_methods",
@@ -57,7 +55,6 @@ public class Restaurant {
     @Embedded
     private Address address;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "restaurant")
     private List<Product> products;
 
