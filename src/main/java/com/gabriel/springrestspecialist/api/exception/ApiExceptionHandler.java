@@ -28,7 +28,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -161,7 +161,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
             .title(exType.getTitle())
             .detail(details)
             .url(url)
-            .timestamp(LocalDateTime.now());
+            .timestamp(OffsetDateTime.now());
     }
 
     private String getExceptionType(ExceptionType exType, WebRequest webRequest) {
