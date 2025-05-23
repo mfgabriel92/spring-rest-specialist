@@ -5,7 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -42,11 +42,11 @@ public class Order {
     @OneToMany(mappedBy = "order")
     private List<OrderItem> items;
 
-    private LocalDateTime createdAt;
+    private OffsetDateTime createdAt;
 
-    private LocalDateTime confirmedAt;
+    private OffsetDateTime confirmedAt;
 
-    private LocalDateTime deliveredAt;
+    private OffsetDateTime deliveredAt;
 
-    private LocalDateTime cancelledAt;
+    private OffsetDateTime cancelledAt;
 }

@@ -2,7 +2,7 @@ spring:
   application:
     name: spring-rest-specialist
   datasource:
-    url: jdbc:postgresql://localhost:5432/springrestspecialist
+    url: jdbc:postgresql://localhost:5432/springrestspecialist?serverTimezone=UTC
     username: postgres
     password:
   jpa:
@@ -11,6 +11,8 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format-sql: true
+        jdbc:
+          time_zone: UTC
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.yaml
   sql:
