@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 
 import javax.persistence.EntityManager;
-import java.util.Optional;
 
 public class CustomRepositoryImpl<T, ID>
     extends SimpleJpaRepository<T, ID>
@@ -19,7 +18,7 @@ public class CustomRepositoryImpl<T, ID>
     }
 
     @Override
-    public Optional<T> findLatestRegistered() {
+    public T findLatestRegistered() {
         var jpql = "FROM " + getDomainClass().getName() + " ORDER BY %s DESC";
         var query = String.format(jpql, "created_at");
 
@@ -27,11 +26,11 @@ public class CustomRepositoryImpl<T, ID>
             .setMaxResults(1)
             .getSingleResult();
 
-        return Optional.ofNullable(entity);
+        return entity;
     }
 
     @Override
-    public Optional<T> findFirstRegistered() {
+    public T findFirstRegistered() {
         var jpql = "FROM " + getDomainClass().getName() + " ORDER BY %s ASC";
         var query = String.format(jpql, "created_at");
 
@@ -39,6 +38,6 @@ public class CustomRepositoryImpl<T, ID>
             .setMaxResults(1)
             .getSingleResult();
 
-        return Optional.ofNullable(entity);
+        return entity;
     }
 }

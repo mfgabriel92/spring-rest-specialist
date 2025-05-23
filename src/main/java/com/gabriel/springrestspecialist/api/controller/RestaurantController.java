@@ -1,9 +1,12 @@
 package com.gabriel.springrestspecialist.api.controller;
 
+import com.gabriel.springrestspecialist.api.request.RestaurantRequest;
+import com.gabriel.springrestspecialist.api.response.RestaurantResponse;
 import com.gabriel.springrestspecialist.domain.model.Restaurant;
 import com.gabriel.springrestspecialist.domain.repository.RestaurantRepository;
 import com.gabriel.springrestspecialist.domain.service.RestaurantService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import static org.springframework.http.HttpStatus.CREATED;
@@ -24,77 +26,95 @@ import static org.springframework.http.ResponseEntity.ok;
 public class RestaurantController {
     private final RestaurantRepository restaurantRepository;
     private final RestaurantService restaurantService;
+    private final ModelMapper mapper;
 
     @GetMapping
-    public ResponseEntity<List<Restaurant>> findAll() {
-        return ok(restaurantRepository.findAll());
+    public ResponseEntity<List<RestaurantResponse>> findAll() {
+        var restaurants = restaurantRepository.findAll();
+        return ok(toModel(restaurants));
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Restaurant> findBId(@PathVariable UUID id) {
-        return ok(restaurantService.findById(id));
+    public ResponseEntity<RestaurantResponse> findBId(@PathVariable UUID id) {
+        var restaurant = restaurantService.findById(id);
+        return ok(toModel(restaurant));
     }
 
     @GetMapping("containing")
-    public ResponseEntity<List<Restaurant>> findByNameContaining(String name) {
-        return ok(restaurantRepository.findByNameContaining(name));
+    public ResponseEntity<List<RestaurantResponse>> findByNameContaining(String name) {
+        var restaurants = restaurantRepository.findByNameContaining(name);
+        return ok(toModel(restaurants));
     }
 
     @GetMapping("free-delivery")
-    public ResponseEntity<List<Restaurant>> findAllFreeDelivery() {
-        return ok(restaurantRepository.findAllFreeDelivery());
+    public ResponseEntity<List<RestaurantResponse>> findAllFreeDelivery() {
+        var restaurants = restaurantRepository.findAllFreeDelivery();
+        return ok(toModel(restaurants));
     }
 
     @GetMapping("no-kitchen")
-    public ResponseEntity<List<Restaurant>> findAllWithoutKitchen() {
-        return ok(restaurantRepository.findAllWithoutKitchen());
+    public ResponseEntity<List<RestaurantResponse>> findAllWithoutKitchen() {
+        var restaurants = restaurantRepository.findAllWithoutKitchen();
+        return ok(toModel(restaurants));
     }
 
     @GetMapping("name-with-delivery-fee")
-    public ResponseEntity<List<Restaurant>> findAllByNameAndDeliveryFee(String name, BigDecimal deliveryFee) {
-        return ok(restaurantRepository.findAllByNameAndDeliveryFee(name, deliveryFee));
+    public ResponseEntity<List<RestaurantResponse>> findAllByNameAndDeliveryFee(String name, BigDecimal deliveryFee) {
+        var restaurants = restaurantRepository.findAllByNameAndDeliveryFee(name, deliveryFee);
+        return ok(toModel(restaurants));
     }
 
     @GetMapping("delivery-fees-between")
-    public ResponseEntity<List<Restaurant>> findAllByNameLikeAndBetweenDeliveryFees(String name, BigDecimal minDeliveryFee, BigDecimal maxDeliveryFee) {
-        return ok(restaurantRepository.findAllByNameLikeAndBetweenDeliveryFees(name, minDeliveryFee, maxDeliveryFee));
+    public ResponseEntity<List<RestaurantResponse>> findAllByNameLikeAndBetweenDeliveryFees(String name, BigDecimal minDeliveryFee, BigDecimal maxDeliveryFee) {
+        var restaurants = restaurantRepository.findAllByNameLikeAndBetweenDeliveryFees(name, minDeliveryFee, maxDeliveryFee);
+        return ok(toModel(restaurants));
     }
 
     @GetMapping("latest")
-    public ResponseEntity<Optional<Restaurant>> findLatestRegistered() {
-        var latest = restaurantRepository.findLatestRegistered();
-        return latest.isPresent()
-            ? ok(latest)
-            : ok(Optional.empty());
+    public ResponseEntity<RestaurantResponse> findLatestRegistered() {
+        var restaurant = restaurantRepository.findLatestRegistered();
+        return ok(toModel(restaurant));
     }
 
     @GetMapping("first")
-    public ResponseEntity<Optional<Restaurant>> findFirstRegistered() {
-        var latest = restaurantRepository.findFirstRegistered();
-        return latest.isPresent()
-            ? ok(latest)
-            : ok(Optional.empty());
+    public ResponseEntity<RestaurantResponse> findFirstRegistered() {
+        var restaurant = restaurantRepository.findFirstRegistered();
+        return ok(toModel(restaurant));
     }
 
     @PostMapping
-    public ResponseEntity<Restaurant> save(@Valid @RequestBody Restaurant restaurant) {
-        restaurant = restaurantService.save(restaurant);
-        return ResponseEntity.status(CREATED).body(restaurant);
+    public ResponseEntity<RestaurantResponse> save(@Valid @RequestBody RestaurantRequest request) {
+        var restaurant = fromModel(request);
+        var response = toModel(restaurantService.save(restaurant));
+        return ResponseEntity.status(CREATED).body(response);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<?> save(@PathVariable UUID id, @RequestBody Restaurant restaurant) {
+    public ResponseEntity<RestaurantResponse> save(@PathVariable UUID id, @Valid @RequestBody RestaurantRequest request) {
         var current = restaurantService.findById(id);
+        BeanUtils.copyProperties(request, current);
 
-        BeanUtils.copyProperties(restaurant, current, "id", "paymentMethods", "address", "products", "createdAt");
-        current = restaurantService.save(current);
-
-        return ok(current);
+        var response = toModel(restaurantService.save(current));
+        return ok(response);
     }
 
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteById(@PathVariable UUID id) {
         restaurantService.deleteById(id);
         return noContent().build();
+    }
+
+    private Restaurant fromModel(RestaurantRequest request) {
+        return mapper.map(request, Restaurant.class);
+    }
+
+    private RestaurantResponse toModel(Restaurant restaurant) {
+        return mapper.map(restaurant, RestaurantResponse.class);
+    }
+
+    private List<RestaurantResponse> toModel(List<Restaurant> restaurants) {
+        return restaurants.stream()
+            .map(this::toModel)
+            .toList();
     }
 }

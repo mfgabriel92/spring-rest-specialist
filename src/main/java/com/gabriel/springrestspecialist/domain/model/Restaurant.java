@@ -1,8 +1,5 @@
 package com.gabriel.springrestspecialist.domain.model;
 
-import com.gabriel.springrestspecialist.core.validation.DeliveryFee;
-import com.gabriel.springrestspecialist.core.validation.Groups;
-import com.gabriel.springrestspecialist.core.validation.Multiple;
 import com.gabriel.springrestspecialist.core.validation.ZeroValueIncludesFlag;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,10 +7,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.groups.ConvertGroup;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -29,17 +22,10 @@ public class Restaurant {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @NotBlank
     private String name;
 
-    @NotNull
-    @DeliveryFee
-    @Multiple(number = 5)
     private BigDecimal deliveryFee;
 
-    @Valid
-    @NotNull
-    @ConvertGroup(to = Groups.CuisineId.class)
     @ManyToOne
     @JoinColumn
     private Cuisine cuisine;
