@@ -7,7 +7,6 @@ import com.gabriel.springrestspecialist.domain.repository.RestaurantRepository;
 import com.gabriel.springrestspecialist.domain.service.RestaurantService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.BeanUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -92,7 +91,7 @@ public class RestaurantController {
     @PutMapping("{id}")
     public ResponseEntity<RestaurantResponse> save(@PathVariable UUID id, @Valid @RequestBody RestaurantRequest request) {
         var current = restaurantService.findById(id);
-        BeanUtils.copyProperties(request, current);
+        mapper.map(request, current);
 
         var response = toModel(restaurantService.save(current));
         return ok(response);
@@ -102,6 +101,10 @@ public class RestaurantController {
     public ResponseEntity<Void> deleteById(@PathVariable UUID id) {
         restaurantService.deleteById(id);
         return noContent().build();
+    }
+
+    private void copyToDomainObj(RestaurantRequest request, Restaurant restaurant) {
+        mapper.map(request, restaurant);
     }
 
     private Restaurant fromModel(RestaurantRequest request) {

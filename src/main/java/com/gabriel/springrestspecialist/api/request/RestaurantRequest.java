@@ -4,7 +4,6 @@ import com.gabriel.springrestspecialist.core.validation.DeliveryFee;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -20,7 +19,6 @@ public class RestaurantRequest {
     @DeliveryFee
     private BigDecimal deliveryFee;
 
-    @Valid
     @NotNull
     private UUID cuisineId;
 }

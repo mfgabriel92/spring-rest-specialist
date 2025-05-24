@@ -44,6 +44,7 @@ public class RestaurantService {
         var cuisine = findById(id);
         try {
             restaurantRepository.deleteById(cuisine.getId());
+            restaurantRepository.flush();
         } catch (DataIntegrityViolationException e) {
             throw new EntityAlreadyInUseException("Cannot delete restaurant because it is being used by another entity");
         }
