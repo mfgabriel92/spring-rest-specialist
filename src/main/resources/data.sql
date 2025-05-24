@@ -186,3 +186,6 @@ VALUES
     ('02cbe455-cecf-48e5-a1e4-ed28b481347a','Tacos al Pastor', null, 9.50, true, '1a6c727c-c25e-4188-abea-cc8ed9efaee5'),
     ('9dc8f668-0ccc-4115-ba7b-3a37f7b9422e','Chicken Enchiladas', null, 11.20, false, '1a6c727c-c25e-4188-abea-cc8ed9efaee5'),
     ('b1150c0f-8dbd-4abf-ac90-00b5088910f8','Guacamole & Chips', null, 7.50, true, '1a6c727c-c25e-4188-abea-cc8ed9efaee5');
+
+INSERT INTO groups (id, name)
+VALUES ('0cc1a34c-3015-457b-8593-19e21989d3ba', 'user');

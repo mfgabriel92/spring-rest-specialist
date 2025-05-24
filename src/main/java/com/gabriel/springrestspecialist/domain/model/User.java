@@ -7,6 +7,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,17 +26,23 @@ public class User {
 
     private String password;
 
+    private String confirmPassword;
+
     @ManyToMany
     @JoinTable(
         name = "users_groups",
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "group_id")
     )
-    private List<Group> groups;
+    private List<Group> groups = new ArrayList<>();
 
     @CreationTimestamp
     private OffsetDateTime createdAt;
 
     @UpdateTimestamp
     private OffsetDateTime updatedAt;
+
+    public boolean passwordsMatch() {
+        return password.equals(confirmPassword);
+    }
 }
