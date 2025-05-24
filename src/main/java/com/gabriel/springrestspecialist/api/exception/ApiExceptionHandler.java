@@ -13,6 +13,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -55,8 +56,13 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(EntityAlreadyInUseException.class)
-    public ResponseEntity<?> handleEntityNotFoundException(EntityAlreadyInUseException ex, WebRequest request) {
+    public ResponseEntity<?> handleEntityAlreadyInUse(EntityAlreadyInUseException ex, WebRequest request) {
         return handleExceptionInternal(ex, CONFLICT, null, request);
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<?> handleDataIntegrityViolationException(DataIntegrityViolationException ex, WebRequest request) {
+        return handleExceptionInternal(ex, NOT_FOUND, null, request);
     }
 
     @Override

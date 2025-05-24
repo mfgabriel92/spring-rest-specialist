@@ -1,6 +1,5 @@
 package com.gabriel.springrestspecialist.domain.model;
 
-import com.gabriel.springrestspecialist.core.validation.ZeroValueIncludesFlag;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -12,7 +11,6 @@ import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
 
-@ZeroValueIncludesFlag(sourceProperty = "deliveryFee", targetProperty = "name", flagValue = "Free Delivery - ")
 @Entity
 @Table(name = "restaurants")
 @Getter

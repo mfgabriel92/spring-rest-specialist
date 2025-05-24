@@ -1,32 +1,32 @@
 package com.gabriel.springrestspecialist.api.request;
 
-import com.gabriel.springrestspecialist.core.validation.DeliveryFee;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 import java.util.UUID;
 
 @Getter
 @Setter
-public class RestaurantRequest {
+public class AddressRequest {
     @NotBlank
-    private String name;
+    private String street;
+    private String apartmentNumber;
+    @NotBlank
+    private String number;
 
-    @NotNull
-    @DeliveryFee
-    private BigDecimal deliveryFee;
+    @NotBlank
+    private String zip;
 
     @Valid
     @NotNull
-    private CuisineId cuisine;
+    private CityId city;
 
     @Getter
     @Setter
-    private static class CuisineId {
+    private static class CityId {
         @NotNull
         private UUID id;
     }

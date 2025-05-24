@@ -1,7 +1,9 @@
 package com.gabriel.springrestspecialist.api.controller;
 
+import com.gabriel.springrestspecialist.api.request.AddressRequest;
 import com.gabriel.springrestspecialist.api.request.RestaurantRequest;
 import com.gabriel.springrestspecialist.api.response.RestaurantResponse;
+import com.gabriel.springrestspecialist.domain.model.Address;
 import com.gabriel.springrestspecialist.domain.model.Restaurant;
 import com.gabriel.springrestspecialist.domain.repository.RestaurantRepository;
 import com.gabriel.springrestspecialist.domain.service.RestaurantService;
@@ -95,6 +97,13 @@ public class RestaurantController {
 
         var response = toModel(restaurantService.save(current));
         return ok(response);
+    }
+
+    @PutMapping("{id}/address")
+    public ResponseEntity<RestaurantResponse> saveAddress(@PathVariable UUID id, @Valid @RequestBody AddressRequest request) {
+        var address = mapper.map(request, Address.class);
+        var restaurant = restaurantService.saveAddress(id, address);
+        return ok(toModel(restaurant));
     }
 
     @PutMapping("{id}/activate")
