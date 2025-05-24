@@ -1,26 +1,23 @@
 package com.gabriel.springrestspecialist.api.controller;
 
+import com.gabriel.springrestspecialist.api.request.PasswordRequest;
 import com.gabriel.springrestspecialist.api.request.UserRequest;
 import com.gabriel.springrestspecialist.api.response.UserResponse;
 import com.gabriel.springrestspecialist.domain.model.User;
-import com.gabriel.springrestspecialist.domain.repository.UserRepository;
 import com.gabriel.springrestspecialist.domain.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("api/v1/users")
 @RequiredArgsConstructor
 public class UserController {
-    private final UserRepository userRepository;
     private final UserService userService;
     private final ModelMapper mapper;
 
@@ -29,6 +26,12 @@ public class UserController {
         var user = fromModel(request);
         var response = toModel(userService.save(user));
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @PutMapping("{id}/change-password")
+    public ResponseEntity<Void> changePassword(@PathVariable UUID id, @Valid @RequestBody PasswordRequest request) {
+        userService.changePassword(id, request.getCurrentPassword(), request.getPassword());
+        return ResponseEntity.noContent().build();
     }
 
     private User fromModel(UserRequest request) {

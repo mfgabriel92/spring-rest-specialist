@@ -26,8 +26,6 @@ public class User {
 
     private String password;
 
-    private String confirmPassword;
-
     @ManyToMany
     @JoinTable(
         name = "users_groups",
@@ -42,7 +40,7 @@ public class User {
     @UpdateTimestamp
     private OffsetDateTime updatedAt;
 
-    public boolean passwordsMatch() {
-        return password.equals(confirmPassword);
+    public boolean isPasswordCorrect(String password) {
+        return this.password.equals(password);
     }
 }

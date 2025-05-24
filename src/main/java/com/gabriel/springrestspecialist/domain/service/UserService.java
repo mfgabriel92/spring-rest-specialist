@@ -23,11 +23,18 @@ public class UserService {
     }
 
     @Transactional
-    public User save(User user) {
-        if (!user.passwordsMatch()) {
-            throw new BusinessLogicException("Passwords do not match");
+    public void changePassword(UUID id, String currentPassword, String password) {
+        var user = findById(id);
+
+        if (!user.isPasswordCorrect(currentPassword)) {
+            throw new BusinessLogicException("Incorrect password");
         }
 
+        user.setPassword(password);
+    }
+
+    @Transactional
+    public User save(User user) {
         var group = groupService.findByName(DEFAULT_USER_GROUP);
         user.getGroups().add(group);
         return userRepository.saveAndFlush(user);
