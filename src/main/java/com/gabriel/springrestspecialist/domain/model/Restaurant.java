@@ -44,9 +44,19 @@ public class Restaurant {
     @OneToMany(mappedBy = "restaurant")
     private List<Product> products;
 
+    private boolean isActive;
+
     @CreationTimestamp
     private OffsetDateTime createdAt;
 
     @UpdateTimestamp
     private OffsetDateTime updatedAt;
+
+    public void activate() {
+        setActive(true);
+    }
+
+    public void deactivate() {
+        setActive(false);
+    }
 }

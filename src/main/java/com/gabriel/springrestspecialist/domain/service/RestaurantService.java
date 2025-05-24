@@ -40,6 +40,18 @@ public class RestaurantService {
     }
 
     @Transactional
+    public void activate(UUID id) {
+        var restaurant = findById(id);
+        restaurant.activate();
+        restaurantRepository.save(restaurant);
+    }
+
+    @Transactional
+    public void deactivate(UUID id) {
+        findById(id).deactivate();
+    }
+
+    @Transactional
     public void deleteById(UUID id) {
         var cuisine = findById(id);
         try {

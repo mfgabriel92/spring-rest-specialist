@@ -97,14 +97,22 @@ public class RestaurantController {
         return ok(response);
     }
 
+    @PutMapping("{id}/activate")
+    public ResponseEntity<RestaurantResponse> activate(@PathVariable UUID id) {
+        restaurantService.activate(id);
+        return noContent().build();
+    }
+
+    @PutMapping("{id}/deactivate")
+    public ResponseEntity<RestaurantResponse> deactivate(@PathVariable UUID id) {
+        restaurantService.deactivate(id);
+        return noContent().build();
+    }
+
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteById(@PathVariable UUID id) {
         restaurantService.deleteById(id);
         return noContent().build();
-    }
-
-    private void copyToDomainObj(RestaurantRequest request, Restaurant restaurant) {
-        mapper.map(request, restaurant);
     }
 
     private Restaurant fromModel(RestaurantRequest request) {

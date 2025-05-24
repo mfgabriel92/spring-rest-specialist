@@ -17,4 +17,5 @@ public class RestaurantResponse {
     private String addressNumber;
     private String addressCityName;
     private String addressZip;
+    private boolean isActive;
 }
