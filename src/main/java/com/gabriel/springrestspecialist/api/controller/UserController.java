@@ -1,6 +1,7 @@
 package com.gabriel.springrestspecialist.api.controller;
 
 import com.gabriel.springrestspecialist.api.request.PasswordRequest;
+import com.gabriel.springrestspecialist.api.request.UserInfoRequest;
 import com.gabriel.springrestspecialist.api.request.UserRequest;
 import com.gabriel.springrestspecialist.api.response.UserResponse;
 import com.gabriel.springrestspecialist.domain.model.User;
@@ -24,8 +25,16 @@ public class UserController {
     @PostMapping
     public ResponseEntity<UserResponse> save(@Valid @RequestBody UserRequest request) {
         var user = fromModel(request);
-        var response = toModel(userService.save(user));
+        var response = toModel(userService.create(user));
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<UserResponse> save(@PathVariable UUID id, @Valid @RequestBody UserInfoRequest request) {
+        var user = userService.findById(id);
+        mapper.map(request, user);
+        var response = toModel(userService.update(user));
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("{id}/change-password")
