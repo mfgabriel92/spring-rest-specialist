@@ -40,6 +40,10 @@ public class User {
     @UpdateTimestamp
     private OffsetDateTime updatedAt;
 
+    public boolean isSameUser(UUID id) {
+        return this.id.equals(id);
+    }
+
     public boolean isPasswordCorrect(String password) {
         return this.password.equals(password);
     }

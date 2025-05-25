@@ -54,7 +54,7 @@ public class UserService {
     private void validateEmailIsUnique(User user) {
         var currentUser = userRepository.findByEmail(user.getEmail());
 
-        if (currentUser.isPresent() && !currentUser.get().equals(user)) {
+        if (currentUser.isPresent() && !currentUser.get().isSameUser(user.getId())) {
             throw new BusinessLogicException(String.format("An user with the email '%s' already exists", user.getEmail()));
         }
     }
