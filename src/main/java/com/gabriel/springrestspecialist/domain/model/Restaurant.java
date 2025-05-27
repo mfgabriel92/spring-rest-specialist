@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -34,7 +35,7 @@ public class Restaurant {
         joinColumns = @JoinColumn(name = "restaurant_id"),
         inverseJoinColumns = @JoinColumn(name = "payment_method_id")
     )
-    private List<PaymentMethod> paymentMethods;
+    private Set<PaymentMethod> paymentMethods;
 
     @Embedded
     private Address address;
@@ -56,5 +57,13 @@ public class Restaurant {
 
     public void deactivate() {
         setActive(false);
+    }
+
+    public void addPaymentMethod(PaymentMethod paymentMethod) {
+        getPaymentMethods().add(paymentMethod);
+    }
+
+    public void removePaymentMethod(PaymentMethod paymentMethod) {
+        getPaymentMethods().remove(paymentMethod);
     }
 }
