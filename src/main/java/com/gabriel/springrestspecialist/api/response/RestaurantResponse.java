@@ -20,4 +20,5 @@ public class RestaurantResponse {
     private String cuisineName;
     private AddressResponse address;
     private boolean isActive;
+    private boolean isOpen;
 }

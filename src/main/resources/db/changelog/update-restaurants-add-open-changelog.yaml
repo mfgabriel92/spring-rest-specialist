@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: c473a497-8b88-44d2-a0a3-38dcd17aadb1
+      author: springrestspecialist
+      changes:
+        - addColumn:
+            tableName: restaurants
+            columns:
+              - column:
+                  name: is_open
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+

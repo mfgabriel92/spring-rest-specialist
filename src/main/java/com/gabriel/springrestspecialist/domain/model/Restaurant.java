@@ -45,6 +45,8 @@ public class Restaurant {
 
     private boolean isActive;
 
+    private boolean isOpen;
+
     @CreationTimestamp
     private OffsetDateTime createdAt;
 
@@ -65,5 +67,13 @@ public class Restaurant {
 
     public void removePaymentMethod(PaymentMethod paymentMethod) {
         getPaymentMethods().remove(paymentMethod);
+    }
+
+    public void open() {
+        setOpen(true);
+    }
+
+    public void close() {
+        setOpen(false);
     }
 }

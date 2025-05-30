@@ -31,3 +31,5 @@ databaseChangeLog:
       file: db/changelog/create-order_items-table-changelog.yaml
   - include:
       file: db/changelog/update-restaurants-add-active-changelog.yaml
+  - include:
+      file: db/changelog/update-restaurants-add-open-changelog.yaml

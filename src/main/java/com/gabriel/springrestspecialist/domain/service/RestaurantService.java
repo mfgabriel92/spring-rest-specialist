@@ -73,6 +73,16 @@ public class RestaurantService {
     }
 
     @Transactional
+    public void open(UUID id) {
+        findById(id).open();
+    }
+
+    @Transactional
+    public void close(UUID id) {
+        findById(id).close();
+    }
+
+    @Transactional
     public void deleteById(UUID id) {
         var cuisine = findById(id);
         try {
