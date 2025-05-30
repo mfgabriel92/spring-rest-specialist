@@ -51,6 +51,20 @@ public class UserService {
         user.setPassword(password);
     }
 
+    @Transactional
+    public void addGroup(UUID id, UUID groupId) {
+        var user = findById(id);
+        var group = groupService.findById(groupId);
+        user.addGroup(group);
+    }
+
+    @Transactional
+    public void removeGroup(UUID id, UUID groupId) {
+        var user = findById(id);
+        var group = groupService.findById(groupId);
+        user.removeGroup(group);
+    }
+
     private void validateEmailIsUnique(User user) {
         var currentUser = userRepository.findByEmail(user.getEmail());
 
