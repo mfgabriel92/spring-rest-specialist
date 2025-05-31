@@ -1,6 +1,4 @@
 TRUNCATE TABLE cuisines CASCADE;
-TRUNCATE TABLE states CASCADE;
-TRUNCATE TABLE cities CASCADE;
 TRUNCATE TABLE restaurants CASCADE;
 TRUNCATE TABLE payment_methods CASCADE;
 TRUNCATE TABLE restaurants_payment_methods CASCADE;
@@ -22,69 +20,8 @@ VALUES ('d42fcf63-b8fc-4ac4-a3a0-893fa9dbb2a9', 'Italian'),
        ('f2e8d739-58ea-4179-b329-4df8d6636c18', 'Chinese'),
        ('7a395d37-5d59-44f1-bb17-d72889d61a45', 'Thai');
 
-INSERT INTO states (id, name)
-VALUES ('842255af-0fa2-4427-84d7-caa370a2dd0c', 'Tuscany'),
-       ('00359d0c-ebfa-4f1f-bd1e-8fba27d8f7f5', 'Sicily'),
-       ('f3ed7835-1588-4c23-81dd-c1c8ae4b2bd0', 'Lombardy'),
-       ('a5b6097f-2fb6-4086-9097-bb2025f942cf', 'Île-de-France'),
-       ('48795b7a-04ca-4d86-8071-0cdcfd016ccb', 'Provence-Alpes-Côte d’Azur'),
-       ('230a99a2-0267-4720-ba2b-c976b6f1dfa7', 'Brittany'),
-       ('eaf8b8f7-0d32-4049-9013-b32a8fdcd4c0', 'Hokkaido'),
-       ('f4a65c6d-4700-4720-9815-09259de3f7b8', 'Kyoto Prefecture'),
-       ('bcfaf36f-e735-4b5e-8b2d-20f87c6baffe', 'Okinawa'),
-       ('6a860bc6-d49a-4bb2-a416-564d641e581c', 'Sichuan'),
-       ('dbcdd2d4-d067-433e-bebe-9eb44387186f', 'Guangdong'),
-       ('0e92ca7f-fd8a-4e59-bbfc-3c97e2c62714', 'Yunnan'),
-       ('016a8a40-c961-426e-ba1b-d450e31ffeaf', 'Chiang Mai Province'),
-       ('993f2ad3-da9e-4b91-97bb-d16af171a876', 'Bangkok Metropolitan Region');
-
-INSERT INTO cities (id, name, state_id)
-VALUES ('3fc10dbe-ec6e-4061-808d-45f569f824f3', 'Florence', '842255af-0fa2-4427-84d7-caa370a2dd0c'),
-       ('1b247aac-7d5e-460b-9f1d-e1dad0c1ffa8', 'Siena', '842255af-0fa2-4427-84d7-caa370a2dd0c'),
-       ('ec28ac1e-3c37-4fd0-94e6-9d331f0b4184', 'Pisa', '842255af-0fa2-4427-84d7-caa370a2dd0c'),
-       ('98cfcbef-4549-487b-8805-a7391cbeebf6', 'Palermo', '00359d0c-ebfa-4f1f-bd1e-8fba27d8f7f5'),
-       ('88175b48-9968-434a-9add-4613896d11b6', 'Catania', '00359d0c-ebfa-4f1f-bd1e-8fba27d8f7f5'),
-       ('819354ac-479a-4daf-8186-9e99cb1a9360', 'Messina', '00359d0c-ebfa-4f1f-bd1e-8fba27d8f7f5'),
-       ('1aebe713-47c4-4f87-b9a2-19480f497fe5', 'Syracuse', '00359d0c-ebfa-4f1f-bd1e-8fba27d8f7f5'),
-       ('0dac6756-1eeb-45d7-8564-e246a2551907', 'Milan', 'f3ed7835-1588-4c23-81dd-c1c8ae4b2bd0'),
-       ('7e1c8f00-b406-4726-aa81-867985dc05b4', 'Bergamo', 'f3ed7835-1588-4c23-81dd-c1c8ae4b2bd0'),
-       ('d0443818-17ae-4cd3-8129-726832563a0d', 'Brescia', 'f3ed7835-1588-4c23-81dd-c1c8ae4b2bd0'),
-       ('d2051be0-8330-4fd6-8aa4-4215b99eef4a', 'Paris', 'a5b6097f-2fb6-4086-9097-bb2025f942cf'),
-       ('e43a684e-5aa0-45d7-af42-db044a09763e', 'Versailles', 'a5b6097f-2fb6-4086-9097-bb2025f942cf'),
-       ('66854930-8ffe-4f27-ba21-bc5ee8209bdb', 'Montfermeil', 'a5b6097f-2fb6-4086-9097-bb2025f942cf'),
-       ('721ac442-faac-4b50-a10a-e2ece8cdd3d2', 'Nice', '48795b7a-04ca-4d86-8071-0cdcfd016ccb'),
-       ('442156a3-6c49-419a-89d2-7d6eaa7a4b9e', 'Marseille', '48795b7a-04ca-4d86-8071-0cdcfd016ccb'),
-       ('37795424-8a69-400e-a8e0-5c0ee4ce5d33', 'Toulon', '48795b7a-04ca-4d86-8071-0cdcfd016ccb'),
-       ('8d53e0b2-847b-42b6-bdbd-3a96d5a44fc4', 'Rennes', '230a99a2-0267-4720-ba2b-c976b6f1dfa7'),
-       ('550fbc10-0999-4fb5-8c48-e4bd1c81d40e', 'Brest', '230a99a2-0267-4720-ba2b-c976b6f1dfa7'),
-       ('b9ae003c-c1f9-4e24-bc51-108e7f2161c3', 'Quimper', '230a99a2-0267-4720-ba2b-c976b6f1dfa7'),
-       ('3b3df562-7ece-4bc1-88ed-66d4fd1585cb', 'Sapporo', 'eaf8b8f7-0d32-4049-9013-b32a8fdcd4c0'),
-       ('9f736c96-0dce-4df3-b186-0e02636e3a99', 'Hakodate', 'eaf8b8f7-0d32-4049-9013-b32a8fdcd4c0'),
-       ('e4657da8-b493-4261-af77-2a0a93e8330e', 'Asahikawa', 'eaf8b8f7-0d32-4049-9013-b32a8fdcd4c0'),
-       ('ac0e95df-ec81-441a-9906-4e262da0286b', 'Kyoto', 'f4a65c6d-4700-4720-9815-09259de3f7b8'),
-       ('c5e149c8-641b-4066-95ab-3572bb0987a9', 'Uji', 'f4a65c6d-4700-4720-9815-09259de3f7b8'),
-       ('6006417d-9474-468a-ae41-a7d84572ab0b', 'Maizuru', 'f4a65c6d-4700-4720-9815-09259de3f7b8'),
-       ('df390424-036f-4812-bcce-881b6093aa9f', 'Naha', 'bcfaf36f-e735-4b5e-8b2d-20f87c6baffe'),
-       ('ba0c09a5-2afc-4041-aa8b-6b38ddf0cc46', 'Ishigaki', 'bcfaf36f-e735-4b5e-8b2d-20f87c6baffe'),
-       ('d5d4d97a-9c4c-4864-93f2-f98bc46a6e21', 'Itoman', 'bcfaf36f-e735-4b5e-8b2d-20f87c6baffe'),
-       ('e5c30306-5a6e-410a-947f-332900be0dca', 'Chengdu', '6a860bc6-d49a-4bb2-a416-564d641e581c'),
-       ('53f0cdad-8305-4bee-99fe-3c839215ee61', 'Leshan', '6a860bc6-d49a-4bb2-a416-564d641e581c'),
-       ('bec7eadf-42d2-414d-add9-82f680ac25b3', 'Mianyang', '6a860bc6-d49a-4bb2-a416-564d641e581c'),
-       ('24b6471c-d0f5-494d-829d-372821963287', 'Guangzhou', 'dbcdd2d4-d067-433e-bebe-9eb44387186f'),
-       ('5e613917-9671-4054-8960-1200598036f2', 'Shenzhen', 'dbcdd2d4-d067-433e-bebe-9eb44387186f'),
-       ('441699d7-504d-4862-a06d-f254162663f6', 'Dongguan', 'dbcdd2d4-d067-433e-bebe-9eb44387186f'),
-       ('72d3c02d-f408-419d-86fe-78a7f9ce72c4', 'Kunming', '0e92ca7f-fd8a-4e59-bbfc-3c97e2c62714'),
-       ('491fa563-b36d-4045-9604-f870d9dfbfad', 'Dali', '0e92ca7f-fd8a-4e59-bbfc-3c97e2c62714'),
-       ('bc31320b-2bce-401a-aa5b-aa9b199c43b0', 'Lijiang', '0e92ca7f-fd8a-4e59-bbfc-3c97e2c62714'),
-       ('504c9a0f-960b-492e-b190-379929ecba4e', 'Chiang Mai', '016a8a40-c961-426e-ba1b-d450e31ffeaf'),
-       ('6697b4be-1f23-41e8-957e-5edb5bed0d58', 'Mae Rim', '016a8a40-c961-426e-ba1b-d450e31ffeaf'),
-       ('2a5470bc-dff6-425a-929f-08b2656b7add', 'San Sai', '016a8a40-c961-426e-ba1b-d450e31ffeaf'),
-       ('76f4289a-d333-441f-b9bb-dd299297756b', 'Bangkok', '993f2ad3-da9e-4b91-97bb-d16af171a876'),
-       ('3f2b4c9b-ac4c-44e6-bdb6-43718ccd244a', 'Nonthaburi', '993f2ad3-da9e-4b91-97bb-d16af171a876'),
-       ('2fa5f02e-b1a4-4d91-8c4d-d5a5c4da4114', 'Samut Prakan', '993f2ad3-da9e-4b91-97bb-d16af171a876');
-
-INSERT INTO restaurants (id, name, delivery_fee, cuisine_id, created_at, updated_at, address_street, address_apartment_number, address_number, address_zip, address_city_id, is_active, is_open)
-VALUES ('e218974b-16bd-49c5-9af6-7ef2843d6c80', 'Le Bistro', 8.46, 'c9ecf4cc-bc7d-4b85-a1c0-2c9e9a003fa4', '2017-09-23T11:42:18', '2017-09-23T11:42:18', 'Rue de Verdun', '12A', '33', '93370', '66854930-8ffe-4f27-ba21-bc5ee8209bdb', false, true),
+INSERT INTO restaurants (id, name, delivery_fee, cuisine_id, created_at, updated_at, address_street, address_apartment_number, address_number, address_zip, address_city, is_active, is_open)
+VALUES ('e218974b-16bd-49c5-9af6-7ef2843d6c80', 'Le Bistro', 8.46, 'c9ecf4cc-bc7d-4b85-a1c0-2c9e9a003fa4', '2017-09-23T11:42:18', '2017-09-23T11:42:18', 'Rue de Verdun', '12A', '33', '93370', 'Montfermeil', false, true),
        ('2ff391fd-f03f-47b0-8f22-eb735396d381', 'Trattoria Roma', 6.87, 'd42fcf63-b8fc-4ac4-a3a0-893fa9dbb2a9', '2015-06-04T04:13:35', '2015-06-04T04:13:35', null, null, null, null, null, false, false),
        ('d0c1c70e-620b-455e-8f1a-9dcf00fbfc25', 'La Provence', 3.13, 'c9ecf4cc-bc7d-4b85-a1c0-2c9e9a003fa4', '2021-12-30T03:59:44', '2021-12-30T03:59:44', null, null, null, null, null, false, true),
        ('6f76e734-5927-49cf-ae02-2ec45445495f', 'Tempura House', 10.55, 'cc2f75bb-89ed-4d6f-a03c-f09f0f3a41a2', '2019-01-06T07:55:41', '2019-01-06T07:55:41', null, null, null, null, null, false, true),
@@ -197,8 +134,8 @@ INSERT INTO users (id, name, email, password, created_at, updated_at)
 VALUES
     ('bf91236e-4595-499b-933d-1703b8ca1f77', 'John Malone Doe', 'johndoe@gmail.com', '12345678', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
-INSERT INTO orders (id, subtotal, delivery_fee, grand_total, address_street, address_apartment_number, address_number, address_city_id, address_zip, status, payment_method_id, restaurant_id, client_id, created_at, confirmed_at, delivered_at, cancelled_at)
-VALUES ('046986fb-bc0e-43ef-be9f-fbe7d4cf7835', 106.75, 8.46, 115.21, 'Rue de Verdun', null, '33', '66854930-8ffe-4f27-ba21-bc5ee8209bdb', '93370', 'OPEN', '82536ca4-e2ae-41c1-8e1a-2dcab4efc162', 'e218974b-16bd-49c5-9af6-7ef2843d6c80', 'bf91236e-4595-499b-933d-1703b8ca1f77', CURRENT_TIMESTAMP, NULL, NULL, NULL);
+INSERT INTO orders (id, subtotal, delivery_fee, grand_total, address_street, address_apartment_number, address_number, address_city, address_zip, status, payment_method_id, restaurant_id, client_id, created_at, confirmed_at, delivered_at, cancelled_at)
+VALUES ('046986fb-bc0e-43ef-be9f-fbe7d4cf7835', 106.75, 8.46, 115.21, 'Rue de Verdun', null, '33', 'Montfermeil', '93370', 'OPEN', '82536ca4-e2ae-41c1-8e1a-2dcab4efc162', 'e218974b-16bd-49c5-9af6-7ef2843d6c80', 'bf91236e-4595-499b-933d-1703b8ca1f77', CURRENT_TIMESTAMP, NULL, NULL, NULL);
 
 INSERT INTO order_items (id, unit_price, grand_total, quantity, obs, order_id, product_id)
 VALUES

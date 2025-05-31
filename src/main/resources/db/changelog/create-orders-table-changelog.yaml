@@ -37,8 +37,8 @@ databaseChangeLog:
                   name: address_number
                   type: VARCHAR(10)
               - column:
-                  name: address_city_id
-                  type: UUID
+                  name: address_city
+                  type: VARCHAR(50)
               - column:
                   name: address_zip
                   type: VARCHAR(15)

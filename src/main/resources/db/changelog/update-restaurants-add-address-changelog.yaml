@@ -19,11 +19,5 @@ databaseChangeLog:
                   name: address_zip
                   type: VARCHAR(50)
               - column:
-                  name: address_city_id
-                  type: UUID
-        - addForeignKeyConstraint:
-            baseColumnNames: address_city_id
-            baseTableName: restaurants
-            constraintName: restaurants_address_cities_id_fk
-            referencedColumnNames: id
-            referencedTableName: cities
+                  name: address_city
+                  type: VARCHAR(50)

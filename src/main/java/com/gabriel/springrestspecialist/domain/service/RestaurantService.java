@@ -4,7 +4,6 @@ import com.gabriel.springrestspecialist.domain.exception.BusinessLogicException;
 import com.gabriel.springrestspecialist.domain.exception.EntityAlreadyInUseException;
 import com.gabriel.springrestspecialist.domain.exception.EntityNotFoundException;
 import com.gabriel.springrestspecialist.domain.model.Address;
-import com.gabriel.springrestspecialist.domain.model.City;
 import com.gabriel.springrestspecialist.domain.model.Cuisine;
 import com.gabriel.springrestspecialist.domain.model.Restaurant;
 import com.gabriel.springrestspecialist.domain.repository.RestaurantRepository;
@@ -20,8 +19,6 @@ import java.util.UUID;
 public class RestaurantService {
     private final RestaurantRepository restaurantRepository;
     private final CuisineService cuisineService;
-    private final CityService cityService;
-    private final PaymentMethodService paymentMethodService;
 
     public Restaurant findById(UUID id) {
         return restaurantRepository.findById(id).orElseThrow(() ->
@@ -58,17 +55,7 @@ public class RestaurantService {
     @Transactional
     public Restaurant saveAddress(UUID id, Address request) {
         var restaurant = findById(id);
-        City city;
-
-        try {
-            city = cityService.findById(request.getCity().getId());
-        } catch (EntityNotFoundException e) {
-            throw new BusinessLogicException(e.getMessage());
-        }
-
         restaurant.setAddress(request);
-        restaurant.getAddress().setCity(city);
-
         return restaurantRepository.saveAndFlush(restaurant);
     }
 
