@@ -2,6 +2,7 @@ package com.gabriel.springrestspecialist.domain.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -28,7 +29,7 @@ public class Order {
     private Address deliveryAddress;
 
     @Enumerated(EnumType.STRING)
-    private OrderStatus status;
+    private OrderStatus status = OrderStatus.OPEN;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private PaymentMethod paymentMethod;
@@ -43,6 +44,7 @@ public class Order {
     @OneToMany(mappedBy = "order")
     private List<OrderItem> items;
 
+    @CreationTimestamp
     private OffsetDateTime createdAt;
 
     private OffsetDateTime confirmedAt;
@@ -50,4 +52,18 @@ public class Order {
     private OffsetDateTime deliveredAt;
 
     private OffsetDateTime cancelledAt;
+
+    public BigDecimal getSubtotal() {
+        return items.stream().map(OrderItem::getGrandTotal).reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    public BigDecimal getGrandTotal() {
+        return getSubtotal().add(deliveryFee);
+    }
+
+    public void calculateGrandTotal() {
+        getItems().forEach(OrderItem::calculateGrandTotal);
+        this.subtotal = getSubtotal();
+        this.grandTotal = getGrandTotal();
+    }
 }

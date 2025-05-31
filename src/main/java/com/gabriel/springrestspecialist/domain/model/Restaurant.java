@@ -75,6 +75,14 @@ public class Restaurant {
         getPaymentMethods().remove(paymentMethod);
     }
 
+    public boolean acceptsPaymentMethod(PaymentMethod paymentMethod) {
+        return getPaymentMethods().contains(paymentMethod);
+    }
+
+    public boolean doesNotAcceptPaymentMethod(PaymentMethod paymentMethod) {
+        return !acceptsPaymentMethod(paymentMethod);
+    }
+
     public void open() {
         setOpen(true);
     }

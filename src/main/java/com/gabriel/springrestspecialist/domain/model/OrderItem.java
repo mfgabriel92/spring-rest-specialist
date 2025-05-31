@@ -29,4 +29,9 @@ public class OrderItem {
 
     @ManyToOne
     private Product product;
+
+    public void calculateGrandTotal() {
+        var grandTotal = unitPrice.multiply(new BigDecimal(quantity));
+        setGrandTotal(grandTotal);
+    }
 }
