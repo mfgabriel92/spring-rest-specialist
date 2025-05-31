@@ -22,6 +22,9 @@ public class Address {
     @Column(name = "address_city")
     private String city;
 
+    @Column(name = "address_state")
+    private String state;
+
     @Column(name = "address_zip")
     private String zip;
 }

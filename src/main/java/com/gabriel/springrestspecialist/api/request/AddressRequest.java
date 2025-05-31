@@ -19,4 +19,7 @@ public class AddressRequest {
 
     @NotBlank
     private String city;
+
+    @NotBlank
+    private String state;
 }

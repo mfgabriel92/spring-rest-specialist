@@ -16,7 +16,7 @@ public class OrderResponse {
     private UUID restaurantId;
     private UUID paymentMethodId;
     private String status;
-    private AddressResponse address;
+    private AddressResponse deliveryAddress;
     private List<OrderItemResponse> items;
     private BigDecimal subtotal;
     private BigDecimal deliveryFee;

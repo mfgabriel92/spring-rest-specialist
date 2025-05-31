@@ -23,7 +23,7 @@ public class OrderRequest {
 
     @Valid
     @NotNull
-    private AddressRequest address;
+    private AddressRequest deliveryAddress;
 
     @Valid
     @NotEmpty

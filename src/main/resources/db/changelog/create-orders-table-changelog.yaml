@@ -40,6 +40,9 @@ databaseChangeLog:
                   name: address_city
                   type: VARCHAR(50)
               - column:
+                  name: address_state
+                  type: VARCHAR(30)
+              - column:
                   name: address_zip
                   type: VARCHAR(15)
               - column:
