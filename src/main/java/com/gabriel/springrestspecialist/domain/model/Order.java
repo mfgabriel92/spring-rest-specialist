@@ -36,7 +36,7 @@ public class Order {
     @ManyToOne(fetch = FetchType.LAZY)
     private Restaurant restaurant;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "client_id")
     private User user;
 

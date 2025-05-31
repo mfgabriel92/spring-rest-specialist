@@ -17,7 +17,7 @@ public class City {
 
     private String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn
     private State state;
 }

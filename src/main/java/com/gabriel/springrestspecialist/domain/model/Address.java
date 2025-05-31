@@ -3,10 +3,7 @@ package com.gabriel.springrestspecialist.domain.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Embeddable
 @Getter
@@ -21,7 +18,7 @@ public class Address {
     @Column(name = "address_number")
     private String number;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "address_city_id")
     private City city;
 
