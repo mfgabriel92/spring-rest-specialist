@@ -8,9 +8,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Table(name = "restaurants")
@@ -35,7 +33,15 @@ public class Restaurant {
         joinColumns = @JoinColumn(name = "restaurant_id"),
         inverseJoinColumns = @JoinColumn(name = "payment_method_id")
     )
-    private Set<PaymentMethod> paymentMethods;
+    private Set<PaymentMethod> paymentMethods = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(
+        name = "restaurants_users",
+        joinColumns = @JoinColumn(name = "restaurant_id"),
+        inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<User> users = new ArrayList<>();
 
     @Embedded
     private Address address;
@@ -75,5 +81,13 @@ public class Restaurant {
 
     public void close() {
         setOpen(false);
+    }
+
+    public void addUser(User user) {
+        getUsers().add(user);
+    }
+
+    public void removeUser(User user) {
+        getUsers().remove(user);
     }
 }

@@ -1,12 +1,9 @@
 package com.gabriel.springrestspecialist.api.controller;
 
 import com.gabriel.springrestspecialist.api.request.AddressRequest;
-import com.gabriel.springrestspecialist.api.request.PaymentMethodRequest;
 import com.gabriel.springrestspecialist.api.request.RestaurantRequest;
-import com.gabriel.springrestspecialist.api.response.PaymentMethodResponse;
 import com.gabriel.springrestspecialist.api.response.RestaurantResponse;
 import com.gabriel.springrestspecialist.domain.model.Address;
-import com.gabriel.springrestspecialist.domain.model.PaymentMethod;
 import com.gabriel.springrestspecialist.domain.model.Restaurant;
 import com.gabriel.springrestspecialist.domain.repository.RestaurantRepository;
 import com.gabriel.springrestspecialist.domain.service.RestaurantService;
@@ -18,9 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.ResponseEntity.noContent;
@@ -123,25 +118,6 @@ public class RestaurantController {
         return noContent().build();
     }
 
-    @GetMapping("{id}/payment-methods")
-    public ResponseEntity<Set<PaymentMethodResponse>> getPaymentMethods(@PathVariable UUID id) {
-        var restaurant = restaurantService.findById(id);
-        var paymentMethods = toPaymentMethodModel(restaurant.getPaymentMethods());
-        return ResponseEntity.ok(paymentMethods);
-    }
-
-    @PostMapping("{id}/payment-methods")
-    public ResponseEntity<Void> addPaymentMethod(@PathVariable UUID id, @Valid @RequestBody PaymentMethodRequest request) {
-        restaurantService.addPaymentMethod(id, request.getId());
-        return noContent().build();
-    }
-
-    @DeleteMapping("{id}/payment-methods/{paymentMethodId}")
-    public ResponseEntity<Void> removePaymentMethod(@PathVariable UUID id, @PathVariable UUID paymentMethodId) {
-        restaurantService.removePaymentMethod(id, paymentMethodId);
-        return noContent().build();
-    }
-
     @PutMapping("{id}/open")
     public ResponseEntity<Void> open(@PathVariable UUID id) {
         restaurantService.open(id);
@@ -168,11 +144,5 @@ public class RestaurantController {
         return restaurants.stream()
             .map(this::toModel)
             .toList();
-    }
-
-    private Set<PaymentMethodResponse> toPaymentMethodModel(Set<PaymentMethod> paymentMethods) {
-        return paymentMethods.stream()
-            .map(pm -> mapper.map(pm, PaymentMethodResponse.class))
-            .collect(Collectors.toSet());
     }
 }

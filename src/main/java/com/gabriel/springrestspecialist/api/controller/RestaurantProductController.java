@@ -68,7 +68,6 @@ public class RestaurantProductController {
         return noContent().build();
     }
 
-
     private ProductResponse toModel(Product product) {
         return mapper.map(product, ProductResponse.class);
     }

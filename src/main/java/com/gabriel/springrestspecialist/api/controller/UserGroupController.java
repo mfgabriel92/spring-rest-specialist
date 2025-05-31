@@ -1,5 +1,6 @@
 package com.gabriel.springrestspecialist.api.controller;
 
+import com.gabriel.springrestspecialist.api.request.IdRequest;
 import com.gabriel.springrestspecialist.api.response.GroupResponse;
 import com.gabriel.springrestspecialist.domain.model.Group;
 import com.gabriel.springrestspecialist.domain.service.UserGroupService;
@@ -8,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -27,15 +29,15 @@ public class UserGroupController {
         return ResponseEntity.ok(toModel(groups));
     }
 
-    @PutMapping("{groupId}")
-    private ResponseEntity<Void> addGroup(@PathVariable UUID id, @PathVariable UUID groupId) {
-        userGroupService.addGroup(id, groupId);
+    @PostMapping
+    private ResponseEntity<Void> addGroup(@PathVariable UUID id, @Valid @RequestBody IdRequest request) {
+        userGroupService.addGroup(id, request.getId());
         return noContent().build();
     }
 
-    @DeleteMapping("{groupId}")
-    private ResponseEntity<Void> removeGroup(@PathVariable UUID id, @PathVariable UUID groupId) {
-        userGroupService.removeGroup(id, groupId);
+    @DeleteMapping()
+    private ResponseEntity<Void> removeGroup(@PathVariable UUID id, @Valid @RequestBody IdRequest request) {
+        userGroupService.removeGroup(id, request.getId());
         return noContent().build();
     }
 

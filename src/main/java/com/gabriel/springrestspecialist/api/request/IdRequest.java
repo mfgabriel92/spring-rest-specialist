@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public class PaymentMethodRequest {
+public class IdRequest {
     @NotNull
-    public UUID id;
+    private UUID id;
 }
