@@ -1,0 +1,34 @@
+databaseChangeLog:
+  - changeSet:
+      id: de3ca043-b892-4b52-a84a-c1a10e7cdc3a
+      author: springrestspecialist
+      changes:
+        - createTable:
+            tableName: restaurants_users
+            columns:
+              - column:
+                  name: restaurant_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+        - addPrimaryKey:
+            tableName: restaurants_users
+            columnNames: restaurant_id, user_id
+            constraintName: restaurants_users_pk
+        - addForeignKeyConstraint:
+            baseColumnNames: restaurant_id
+            baseTableName: restaurants_users
+            constraintName: restaurants_users_restaurant_fk
+            referencedColumnNames: id
+            referencedTableName: restaurants
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: restaurants_users
+            constraintName: restaurants_users_users_fk
+            referencedColumnNames: id
+            referencedTableName: users
