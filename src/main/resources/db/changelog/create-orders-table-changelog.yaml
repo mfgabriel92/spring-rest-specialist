@@ -43,7 +43,7 @@ databaseChangeLog:
                   name: address_zip
                   type: VARCHAR(15)
               - column:
-                  name: order_staus
+                  name: status
                   type: VARCHAR(10)
                   constraints:
                     nullable: false
@@ -58,7 +58,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: user_id
+                  name: client_id
                   type: UUID
                   constraints:
                     nullable: false
@@ -72,20 +72,14 @@ databaseChangeLog:
                   name: confirmed_at
                   type: TIMESTAMP WITH TIME ZONE
                   defaultValueComputed: CURRENT_TIMESTAMP
-                  constraints:
-                    nullable: false
               - column:
                   name: delivered_at
                   type: TIMESTAMP WITH TIME ZONE
                   defaultValueComputed: CURRENT_TIMESTAMP
-                  constraints:
-                    nullable: false
               - column:
                   name: cancelled_at
                   type: TIMESTAMP WITH TIME ZONE
                   defaultValueComputed: CURRENT_TIMESTAMP
-                  constraints:
-                    nullable: false
         - addForeignKeyConstraint:
             baseColumnNames: payment_method_id
             baseTableName: orders
@@ -99,7 +93,7 @@ databaseChangeLog:
             referencedColumnNames: id
             referencedTableName: restaurants
         - addForeignKeyConstraint:
-            baseColumnNames: user_id
+            baseColumnNames: client_id
             baseTableName: orders
             constraintName: users_orders_fk
             referencedColumnNames: id

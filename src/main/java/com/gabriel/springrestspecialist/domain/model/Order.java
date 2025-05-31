@@ -27,15 +27,16 @@ public class Order {
     @Embedded
     private Address deliveryAddress;
 
+    @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private PaymentMethod paymentMethod;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Restaurant restaurant;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
     private User user;
 

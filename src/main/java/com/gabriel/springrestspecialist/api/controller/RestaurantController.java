@@ -3,6 +3,7 @@ package com.gabriel.springrestspecialist.api.controller;
 import com.gabriel.springrestspecialist.api.request.AddressRequest;
 import com.gabriel.springrestspecialist.api.request.RestaurantRequest;
 import com.gabriel.springrestspecialist.api.response.RestaurantResponse;
+import com.gabriel.springrestspecialist.api.response.RestaurantSummaryResponse;
 import com.gabriel.springrestspecialist.domain.model.Address;
 import com.gabriel.springrestspecialist.domain.model.Restaurant;
 import com.gabriel.springrestspecialist.domain.repository.RestaurantRepository;
@@ -30,9 +31,9 @@ public class RestaurantController {
     private final ModelMapper mapper;
 
     @GetMapping
-    public ResponseEntity<List<RestaurantResponse>> findAll() {
+    public ResponseEntity<List<RestaurantSummaryResponse>> findAll() {
         var restaurants = restaurantRepository.findAll();
-        return ok(toModel(restaurants));
+        return ok(toSummaryModel(restaurants));
     }
 
     @GetMapping("{id}")
@@ -143,6 +144,12 @@ public class RestaurantController {
     private List<RestaurantResponse> toModel(List<Restaurant> restaurants) {
         return restaurants.stream()
             .map(this::toModel)
+            .toList();
+    }
+
+    private List<RestaurantSummaryResponse> toSummaryModel(List<Restaurant> restaurants) {
+        return restaurants.stream()
+            .map(r -> mapper.map(r, RestaurantSummaryResponse.class))
             .toList();
     }
 }
