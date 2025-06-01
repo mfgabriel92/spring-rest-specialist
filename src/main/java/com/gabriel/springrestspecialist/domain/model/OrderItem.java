@@ -20,6 +20,8 @@ public class OrderItem {
 
     private BigDecimal grandTotal;
 
+    private BigDecimal promotionalDiscount;
+
     private int quantity;
 
     private String obs;

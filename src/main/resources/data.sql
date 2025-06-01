@@ -137,8 +137,8 @@ VALUES
 INSERT INTO orders (id, subtotal, delivery_fee, grand_total, address_street, address_apartment_number, address_number, address_city, address_zip, status, payment_method_id, restaurant_id, client_id, created_at, confirmed_at, delivered_at, cancelled_at)
 VALUES ('046986fb-bc0e-43ef-be9f-fbe7d4cf7835', 106.75, 8.46, 115.21, 'Rue de Verdun', null, '33', 'Montfermeil', '93370', 'OPEN', '82536ca4-e2ae-41c1-8e1a-2dcab4efc162', 'e218974b-16bd-49c5-9af6-7ef2843d6c80', 'bf91236e-4595-499b-933d-1703b8ca1f77', CURRENT_TIMESTAMP, NULL, NULL, NULL);
 
-INSERT INTO order_items (id, unit_price, grand_total, quantity, obs, order_id, product_id)
+INSERT INTO order_items (id, unit_price, promotional_discount, grand_total, quantity, obs, order_id, product_id)
 VALUES
-    ('c24aab15-3595-4f2e-8576-91e901e98465', 18.50, 18.50, 1, NULL, '046986fb-bc0e-43ef-be9f-fbe7d4cf7835', 'f2718bf7-3b40-403a-a35b-703613237eae'),
-    ('5dac0c82-bc0a-485c-9f31-db121913498c', 22.00, 44.00, 2, 'No pepper', '046986fb-bc0e-43ef-be9f-fbe7d4cf7835', '5c6b56a9-aef0-4174-a524-acd2fd9f422d'),
-    ('b6248d6b-152c-43c1-a7c3-64b0fa7f37bf', 14.75, 44.25, 3, NULL, '046986fb-bc0e-43ef-be9f-fbe7d4cf7835', '993a89ba-b52d-4c5f-b67b-79678a2288c9');
+    ('c24aab15-3595-4f2e-8576-91e901e98465', 18.50, 0, 18.50, 1, NULL, '046986fb-bc0e-43ef-be9f-fbe7d4cf7835', 'f2718bf7-3b40-403a-a35b-703613237eae'),
+    ('5dac0c82-bc0a-485c-9f31-db121913498c', 22.00, 0, 44.00, 2, 'No pepper', '046986fb-bc0e-43ef-be9f-fbe7d4cf7835', '5c6b56a9-aef0-4174-a524-acd2fd9f422d'),
+    ('b6248d6b-152c-43c1-a7c3-64b0fa7f37bf', 14.75, 0, 44.25, 3, NULL, '046986fb-bc0e-43ef-be9f-fbe7d4cf7835', '993a89ba-b52d-4c5f-b67b-79678a2288c9');

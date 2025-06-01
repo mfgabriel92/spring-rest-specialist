@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: 9e748b64-9890-4184-a6d0-b1cadbc7d2ac
+      author: springrestspecialist
+      changes:
+        - addColumn:
+            tableName: order_items
+            columns:
+              - column:
+                  name: promotional_discount
+                  type: DECIMAL
+                  defaultValue: 0
+        - sql:
+            sql: |
+              ALTER TABLE order_items
+              ADD CONSTRAINT chk_promotional_discount_min_max CHECK (
+                promotional_discount >= 0 AND promotional_discount <= 100
+              );
+
