@@ -11,9 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
-import static com.gabriel.springrestspecialist.domain.model.OrderStatus.CONFIRMED;
-import static com.gabriel.springrestspecialist.domain.model.OrderStatus.OPEN;
-
 @Service
 @RequiredArgsConstructor
 public class OrderService {
@@ -61,23 +58,14 @@ public class OrderService {
     public void changeStatus(UUID id, OrderStatus status) {
         var order = findById(id);
 
-        switch (status) {
-            case CONFIRMED, CANCELED -> checkStatusUpdateAllowed(order, OPEN, status);
-            case DELIVERED, REFUNDED -> checkStatusUpdateAllowed(order, CONFIRMED, status);
-            default -> checkStatusUpdateAllowed(order, order.getStatus(), status);
+        if (order.getStatus().cannotAlterToStatus(status)) {
+            throw new BusinessLogicException(String.format(
+                "Order '%s' cannot be altered to %s",
+                order.getId(),
+                status.getName()
+            ));
         }
 
         order.setStatus(status);
-    }
-
-    private void checkStatusUpdateAllowed(Order order, OrderStatus shouldBe, OrderStatus targetValue) {
-        if (!order.getStatus().equals(shouldBe)) {
-            throw new BusinessLogicException(String.format(
-                "Order '%s' cannot be altered from %s to %s",
-                order.getId(),
-                shouldBe.getName(),
-                targetValue.getName()
-            ));
-        }
     }
 }

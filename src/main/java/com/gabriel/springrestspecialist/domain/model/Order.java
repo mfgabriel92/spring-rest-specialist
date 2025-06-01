@@ -66,8 +66,4 @@ public class Order {
         this.subtotal = getSubtotal();
         this.grandTotal = getGrandTotal();
     }
-
-    public boolean isOpen() {
-        return status == OrderStatus.OPEN;
-    }
 }
