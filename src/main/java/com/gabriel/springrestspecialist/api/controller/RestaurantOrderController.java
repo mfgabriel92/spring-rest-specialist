@@ -2,7 +2,9 @@ package com.gabriel.springrestspecialist.api.controller;
 
 import com.gabriel.springrestspecialist.api.response.RestaurantOrderResponse;
 import com.gabriel.springrestspecialist.api.response.RestaurantOrderSummaryResponse;
+import com.gabriel.springrestspecialist.domain.filter.OrderFilter;
 import com.gabriel.springrestspecialist.domain.model.Order;
+import com.gabriel.springrestspecialist.domain.repository.RestaurantOrderRepository;
 import com.gabriel.springrestspecialist.domain.service.RestaurantOrderService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.UUID;
 
+import static com.gabriel.springrestspecialist.infrastructure.repository.spec.OrderSpecs.withFilter;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
@@ -22,11 +25,12 @@ import static org.springframework.http.ResponseEntity.ok;
 @RequiredArgsConstructor
 public class RestaurantOrderController {
     private final RestaurantOrderService restaurantOrderService;
+    private final RestaurantOrderRepository restaurantOrderRepository;
     private final ModelMapper mapper;
 
     @GetMapping
-    public ResponseEntity<List<RestaurantOrderSummaryResponse>> findAllOrdersByRestaurantId(@PathVariable UUID id) {
-        var response = restaurantOrderService.findAllByRestaurantId(id);
+    public ResponseEntity<List<RestaurantOrderSummaryResponse>> filter(OrderFilter filter) {
+        var response = restaurantOrderRepository.findAll(withFilter(filter));
         return ok(toSummaryModel(response));
     }
 

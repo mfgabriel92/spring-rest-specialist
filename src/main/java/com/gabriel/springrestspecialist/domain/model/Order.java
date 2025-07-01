@@ -31,10 +31,10 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus status = OrderStatus.OPEN;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private PaymentMethod paymentMethod;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Restaurant restaurant;
 
     @ManyToOne

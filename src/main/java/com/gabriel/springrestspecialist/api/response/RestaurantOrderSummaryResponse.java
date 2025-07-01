@@ -14,6 +14,8 @@ import java.util.UUID;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RestaurantOrderSummaryResponse {
     private UUID id;
+    private UUID userId;
+    private UUID restaurantId;
     private BigDecimal grandTotal;
     private String status;
 
