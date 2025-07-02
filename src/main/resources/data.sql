@@ -18,18 +18,27 @@ VALUES ('d42fcf63-b8fc-4ac4-a3a0-893fa9dbb2a9', 'Italian'),
        ('c9ecf4cc-bc7d-4b85-a1c0-2c9e9a003fa4', 'French'),
        ('cc2f75bb-89ed-4d6f-a03c-f09f0f3a41a2', 'Japanese'),
        ('f2e8d739-58ea-4179-b329-4df8d6636c18', 'Chinese'),
-       ('7a395d37-5d59-44f1-bb17-d72889d61a45', 'Thai');
+       ('7a395d37-5d59-44f1-bb17-d72889d61a45', 'Thai'),
+       ('c95b58ba-011b-4bc5-8513-b8dee51fcea3', 'Mexican'),
+       ('e75046db-a905-4a1a-8ae8-ed5a6ab69d6f', 'Indian'),
+       ('cdb2852b-e26e-438b-baa8-9fd352157a26', 'Korean'),
+       ('e9aae640-6592-4669-abbf-57245dbf35a9', 'Greek'),
+       ('6a101046-5ec8-4e90-8fdb-c1ab9593bf87', 'Spanish');
 
 INSERT INTO restaurants (id, name, delivery_fee, cuisine_id, created_at, updated_at, address_street, address_apartment_number, address_number, address_zip, address_city, is_active, is_open)
 VALUES ('e218974b-16bd-49c5-9af6-7ef2843d6c80', 'Le Bistro', 8.46, 'c9ecf4cc-bc7d-4b85-a1c0-2c9e9a003fa4', '2017-09-23T11:42:18', '2017-09-23T11:42:18', 'Rue de Verdun', '12A', '33', '93370', 'Montfermeil', false, true),
        ('2ff391fd-f03f-47b0-8f22-eb735396d381', 'Trattoria Roma', 6.87, 'd42fcf63-b8fc-4ac4-a3a0-893fa9dbb2a9', '2015-06-04T04:13:35', '2015-06-04T04:13:35', null, null, null, null, null, false, false),
-       ('d0c1c70e-620b-455e-8f1a-9dcf00fbfc25', 'La Provence', 3.13, 'c9ecf4cc-bc7d-4b85-a1c0-2c9e9a003fa4', '2021-12-30T03:59:44', '2021-12-30T03:59:44', null, null, null, null, null, false, true),
-       ('6f76e734-5927-49cf-ae02-2ec45445495f', 'Tempura House', 10.55, 'cc2f75bb-89ed-4d6f-a03c-f09f0f3a41a2', '2019-01-06T07:55:41', '2019-01-06T07:55:41', null, null, null, null, null, false, true),
-       ('a81d2e9a-bb41-43e1-97da-d775cf8620d5', 'Golden Wok', 19.04, 'f2e8d739-58ea-4179-b329-4df8d6636c18', '2018-08-20T18:14:26', '2018-08-20T18:14:26', null, null, null, null, null, false, true),
-       ('802b7815-26fa-424f-ab44-78689f168fc5', 'Bamboo Leaf', 5.8, 'f2e8d739-58ea-4179-b329-4df8d6636c18', '2016-02-14T10:12:09', '2016-02-14T10:12:09', null, null, null, null, null, false, true),
-       ('517c882a-c574-4987-b848-c152597378a6', 'Thai Spice', 14.61, '7a395d37-5d59-44f1-bb17-d72889d61a45', '2022-07-13T15:23:50', '2022-07-13T15:23:50', null, null, null, null, null, false, true),
+       ('d0c1c70e-620b-455e-8f1a-9dcf00fbfc25', 'La Provence', 3.13, 'c9ecf4cc-bc7d-4b85-a1c0-2c9e9a003fa4', '2021-12-30T03:59:44', '2021-12-30T03:59:44', null, null, null, null, null, true, true),
+       ('6f76e734-5927-49cf-ae02-2ec45445495f', 'Tempura House', 0, 'cc2f75bb-89ed-4d6f-a03c-f09f0f3a41a2', '2019-01-06T07:55:41', '2019-01-06T07:55:41', null, null, null, null, null, true, true),
+       ('a81d2e9a-bb41-43e1-97da-d775cf8620d5', 'Golden Wok', 19.04, 'f2e8d739-58ea-4179-b329-4df8d6636c18', '2018-08-20T18:14:26', '2018-08-20T18:14:26', null, null, null, null, null, true, false),
+       ('802b7815-26fa-424f-ab44-78689f168fc5', 'Bamboo Leaf', 0, 'f2e8d739-58ea-4179-b329-4df8d6636c18', '2016-02-14T10:12:09', '2016-02-14T10:12:09', null, null, null, null, null, true, false),
+       ('517c882a-c574-4987-b848-c152597378a6', 'Thai Spice', 14.61, '7a395d37-5d59-44f1-bb17-d72889d61a45', '2022-07-13T15:23:50', '2022-07-13T15:23:50', null, null, null, null, null, true, true),
        ('cb63e348-485b-41dd-b9e9-45c24265883d', 'Bangkok Taste', 17.97, '7a395d37-5d59-44f1-bb17-d72889d61a45', '2020-04-17T22:35:14', '2020-04-17T22:35:14', null, null, null, null, null, false, false),
-       ('1a6c727c-c25e-4188-abea-cc8ed9efaee5', 'La Fiesta', 8.78, null, '2024-10-01T03:38:47', '2024-10-01T03:38:47', null, null, null, null, null, false, true);
+       ('1a6c727c-c25e-4188-abea-cc8ed9efaee5', 'Casa del Sol', 9.79, 'c95b58ba-011b-4bc5-8513-b8dee51fcea3', '2012-08-14T03:26:51', '2012-08-14T03:26:51', null, null, null, null, null, true, true),
+       ('3f3a0b23-e61a-4600-a8da-8ee37fd60be9', 'Spice Symphony', 10.66, 'e75046db-a905-4a1a-8ae8-ed5a6ab69d6f', '2020-01-19T18:44:07', '2020-01-19T18:44:07', null, null, null, null, null, true, true),
+       ('c721e6f2-41bd-45b6-9e3c-3c1ef15e2863', 'Seoul Street Kitchen', 11.60, 'cdb2852b-e26e-438b-baa8-9fd352157a26', '2015-11-05T22:31:10', '2015-11-05T22:31:10', null, null, null, null, null, true, false),
+       ('84df62d3-1371-4ae6-b689-1588a13cc05f', 'The Olive Gardenia', 0, 'e9aae640-6592-4669-abbf-57245dbf35a9', '2017-04-23T09:57:33', '2017-04-23T09:57:33', null, null, null, null, null, true, false),
+       ('572b0244-9819-4502-abd6-6502ac72f502', 'Tapas y Vino', 4.93, '6a101046-5ec8-4e90-8fdb-c1ab9593bf87', '2023-12-08T14:11:42', '2023-12-08T14:11:42', null, null, null, null, null, true, true);
 
 INSERT INTO payment_methods (id, name)
 VALUES
@@ -124,7 +133,12 @@ VALUES
     ('78796aa9-8982-480f-bdb5-9fcb4ac4b21d','Larb Gai', null, 11.10, true, 'cb63e348-485b-41dd-b9e9-45c24265883d'),
     ('02cbe455-cecf-48e5-a1e4-ed28b481347a','Tacos al Pastor', null, 9.50, true, '1a6c727c-c25e-4188-abea-cc8ed9efaee5'),
     ('9dc8f668-0ccc-4115-ba7b-3a37f7b9422e','Chicken Enchiladas', null, 11.20, false, '1a6c727c-c25e-4188-abea-cc8ed9efaee5'),
-    ('b1150c0f-8dbd-4abf-ac90-00b5088910f8','Guacamole & Chips', null, 7.50, true, '1a6c727c-c25e-4188-abea-cc8ed9efaee5');
+    ('b1150c0f-8dbd-4abf-ac90-00b5088910f8','Guacamole & Chips', null, 7.50, true, '1a6c727c-c25e-4188-abea-cc8ed9efaee5'),
+    ('41957b96-d849-43e6-ac0d-25dc16025394', 'Tacos de Carnitas', 'Signature tacos with slow-cooked pork', 11.50, true, '1a6c727c-c25e-4188-abea-cc8ed9efaee5'),
+    ('f71a6a12-5576-4019-a147-404611a77f0b', 'Butter Chicken', 'Creamy tomato curry with tender chicken', 13.25, true, '3f3a0b23-e61a-4600-a8da-8ee37fd60be9'),
+    ('12365e46-46a9-49c1-86ed-6b6029015693', 'Bibimbap', 'Korean rice bowl with vegetables and beef', 12.00, true, 'c721e6f2-41bd-45b6-9e3c-3c1ef15e2863'),
+    ('3b159760-f004-46e4-a92c-4cfca65a2077', 'Moussaka', 'Traditional Greek layered eggplant casserole', 14.75, true, '84df62d3-1371-4ae6-b689-1588a13cc05f'),
+    ('1d15b90c-1574-4b44-825e-48fddf414cf6', 'Paella Valenciana', 'Classic Spanish rice dish with seafood', 15.90, true, '572b0244-9819-4502-abd6-6502ac72f502');
 
 INSERT INTO groups (id, name)
 VALUES
@@ -135,7 +149,13 @@ VALUES
     ('bf91236e-4595-499b-933d-1703b8ca1f77', 'John Malone Doe', 'johndoe@gmail.com', '12345678', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT INTO orders (id, subtotal, delivery_fee, grand_total, address_street, address_apartment_number, address_number, address_city, address_zip, status, payment_method_id, restaurant_id, client_id, created_at, confirmed_at, delivered_at, cancelled_at)
-VALUES ('046986fb-bc0e-43ef-be9f-fbe7d4cf7835', 106.75, 8.46, 115.21, 'Rue de Verdun', null, '33', 'Montfermeil', '93370', 'OPEN', '82536ca4-e2ae-41c1-8e1a-2dcab4efc162', 'e218974b-16bd-49c5-9af6-7ef2843d6c80', 'bf91236e-4595-499b-933d-1703b8ca1f77', CURRENT_TIMESTAMP, NULL, NULL, NULL);
+VALUES
+    ('046986fb-bc0e-43ef-be9f-fbe7d4cf7835', 106.75, 8.46, 115.21, 'Rue de Verdun', null, '33', 'Montfermeil', '93370', 'OPEN', '82536ca4-e2ae-41c1-8e1a-2dcab4efc162', 'e218974b-16bd-49c5-9af6-7ef2843d6c80', 'bf91236e-4595-499b-933d-1703b8ca1f77', CURRENT_TIMESTAMP, NULL, NULL, NULL),
+    ('07fdb527-cd32-470f-8166-b7ea5f786401', 11.50, 9.79, 21.29, 'Calle de la Reforma', null, '45', 'Mexico City', '06600', 'OPEN', '82536ca4-e2ae-41c1-8e1a-2dcab4efc162', '1a6c727c-c25e-4188-abea-cc8ed9efaee5', 'bf91236e-4595-499b-933d-1703b8ca1f77', CURRENT_TIMESTAMP, NULL, NULL, NULL),
+    ('0fdd08ca-cda9-4b1d-8642-2a5560e46c53', 13.25, 10.66, 23.91, 'MG Road', null, '12', 'Bengaluru', '560001', 'OPEN', '82536ca4-e2ae-41c1-8e1a-2dcab4efc162', '3f3a0b23-e61a-4600-a8da-8ee37fd60be9', 'bf91236e-4595-499b-933d-1703b8ca1f77', CURRENT_TIMESTAMP, NULL, NULL, NULL),
+    ('8f872915-37cc-4dda-8fa5-17eb4877af9d', 12.00, 11.60, 23.60, 'Gangnam-daero', null, '203', 'Seoul', '06236', 'OPEN', '82536ca4-e2ae-41c1-8e1a-2dcab4efc162', 'c721e6f2-41bd-45b6-9e3c-3c1ef15e2863', 'bf91236e-4595-499b-933d-1703b8ca1f77', CURRENT_TIMESTAMP, NULL, NULL, NULL),
+    ('32807a01-3ed8-4fd0-b691-a9c247a99747', 14.75, 0, 14.75, 'Ermou Street', null, '88', 'Athens', '10563', 'OPEN', '82536ca4-e2ae-41c1-8e1a-2dcab4efc162', '84df62d3-1371-4ae6-b689-1588a13cc05f', 'bf91236e-4595-499b-933d-1703b8ca1f77', CURRENT_TIMESTAMP, NULL, NULL, NULL),
+    ('909f5504-a71b-4a1b-8e86-99acf8696422', 15.90, 4.93, 20.83, 'Carrer de Mallorca', null, '290', 'Barcelona', '08037', 'OPEN', '82536ca4-e2ae-41c1-8e1a-2dcab4efc162', '572b0244-9819-4502-abd6-6502ac72f502', 'bf91236e-4595-499b-933d-1703b8ca1f77', CURRENT_TIMESTAMP, NULL, NULL, NULL);
 
 INSERT INTO order_items (id, unit_price, promotional_discount, grand_total, quantity, obs, order_id, product_id)
 VALUES

@@ -10,6 +10,9 @@ import com.gabriel.springrestspecialist.domain.repository.RestaurantRepository;
 import com.gabriel.springrestspecialist.domain.service.RestaurantService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,9 +34,11 @@ public class RestaurantController {
     private final ModelMapper mapper;
 
     @GetMapping
-    public ResponseEntity<List<RestaurantSummaryResponse>> findAll() {
-        var restaurants = restaurantRepository.findAll();
-        return ok(toSummaryModel(restaurants));
+    public ResponseEntity<Page<RestaurantSummaryResponse>> findAll(Pageable pageable) {
+        var restaurants = restaurantRepository.findAll(pageable);
+        var restaurantsModel = toSummaryModel(restaurants.getContent());
+        var pagedResponse = new PageImpl<>(restaurantsModel, pageable, restaurants.getTotalPages());
+        return ok(pagedResponse);
     }
 
     @GetMapping("{id}")
