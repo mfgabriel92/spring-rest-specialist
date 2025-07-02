@@ -16,7 +16,7 @@ public class OrderSpecs {
             var predicates = new ArrayList<Predicate>();
 
             if (filter.getUserId() != null) {
-                predicates.add(criteriaBuilder.equal(root.get("client").get("id"), filter.getUserId()));
+                predicates.add(criteriaBuilder.equal(root.get("user").get("id"), filter.getUserId()));
             }
 
             if (filter.getRestaurantId() != null) {

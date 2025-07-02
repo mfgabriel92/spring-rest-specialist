@@ -18,6 +18,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -107,7 +109,16 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         var exType = VALIDATION_ERROR;
         var body = exceptionBuilder(ex, exType, "One or more fields contain errors. Please correct them and try again", request)
-            .errors(getErrors(ex))
+            .errors(getErrors(ex.getBindingResult()))
+            .build();
+        return handleExceptionInternal(ex, body, new HttpHeaders(), exType.getStatus(), request);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleBindException(BindException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        var exType = VALIDATION_ERROR;
+        var body = exceptionBuilder(ex, exType, "One or more fields contain errors. Please correct them and try again", request)
+            .errors(getErrors(ex.getBindingResult()))
             .build();
         return handleExceptionInternal(ex, body, new HttpHeaders(), exType.getStatus(), request);
     }
@@ -184,8 +195,8 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return ((ServletWebRequest) request).getRequest();
     }
 
-    private List<ExceptionMessage.Error> getErrors(MethodArgumentNotValidException ex) {
-        return ex.getBindingResult()
+    private List<ExceptionMessage.Error> getErrors(BindingResult bindingResult) {
+        return bindingResult
             .getAllErrors()
             .stream()
             .map(objError -> {
