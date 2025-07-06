@@ -26,10 +26,10 @@ public class OrderItem {
 
     private String obs;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Order order;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Product product;
 
     public void calculateGrandTotal() {
