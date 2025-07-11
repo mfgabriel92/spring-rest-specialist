@@ -1,6 +1,7 @@
 package com.gabriel.springrestspecialist.api.controller;
 
 import com.gabriel.springrestspecialist.api.request.DeleteProductsRequest;
+import com.gabriel.springrestspecialist.api.request.ProductPhotoRequest;
 import com.gabriel.springrestspecialist.api.request.ProductRequest;
 import com.gabriel.springrestspecialist.api.request.ProductsRequest;
 import com.gabriel.springrestspecialist.api.response.ProductResponse;
@@ -17,6 +18,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
+import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
 import static org.springframework.http.ResponseEntity.noContent;
 import static org.springframework.http.ResponseEntity.ok;
 
@@ -56,6 +58,12 @@ public class RestaurantProductController {
         var product = mapper.map(request, Product.class);
         var response = restaurantProductService.save(restaurantId, productId, product);
         return ok(toModel(response));
+    }
+
+    @PutMapping(value = "{productId}/photo", consumes = MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<ProductResponse> uploadPhoto(@PathVariable UUID restaurantId, @PathVariable UUID productId, ProductPhotoRequest request) {
+        restaurantProductService.uploadPhoto(restaurantId, productId, request);
+        return ok(null);
     }
 
     @DeleteMapping

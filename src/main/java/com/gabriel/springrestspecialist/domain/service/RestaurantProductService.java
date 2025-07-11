@@ -1,5 +1,6 @@
 package com.gabriel.springrestspecialist.domain.service;
 
+import com.gabriel.springrestspecialist.api.request.ProductPhotoRequest;
 import com.gabriel.springrestspecialist.domain.exception.EntityNotFoundException;
 import com.gabriel.springrestspecialist.domain.model.Product;
 import com.gabriel.springrestspecialist.domain.repository.RestaurantProductRepository;
@@ -7,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.nio.file.Path;
 import java.util.List;
 import java.util.UUID;
 
@@ -42,6 +44,20 @@ public class RestaurantProductService {
         updated.setPrice(product.getPrice());
 
         return restaurantProductRepository.save(updated);
+    }
+
+    @Transactional
+    public void uploadPhoto(UUID restaurantId, UUID productId, ProductPhotoRequest request) {
+        var restaurant = restaurantService.findById(restaurantId);
+        findById(restaurant.getId(), productId);
+        var fileName = UUID.randomUUID() + "-" + request.getFile().getOriginalFilename();
+        var dir = Path.of("/Users/gabriel/Desktop", fileName);
+
+        try {
+            request.getFile().transferTo(dir);
+        } catch (Exception e) {
+            throw new RuntimeException("Error uploading file", e);
+        }
     }
 
     @Transactional
