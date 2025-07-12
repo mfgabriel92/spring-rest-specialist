@@ -17,7 +17,7 @@ import static com.gabriel.springrestspecialist.infrastructure.repository.spec.Re
 
 @Repository
 @RequiredArgsConstructor(onConstructor_ = { @Lazy })
-public class RestaurantRepositoryImpl implements RestaurantRepositoryImplQueries {
+public class RestaurantRepositoryQueriesImpl implements RestaurantRepositoryQueries {
     @Lazy
     private final RestaurantRepository restaurantRepository;
 

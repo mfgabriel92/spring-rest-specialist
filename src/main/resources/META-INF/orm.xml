@@ -9,4 +9,14 @@
             WHERE r.deliveryFee = 0
         </query>
     </named-query>
+
+    <named-query name="Product.findPhotoById">
+        <query>
+            SELECT pp
+            FROM ProductPhoto pp
+            JOIN pp.product p
+            WHERE p.restaurant.id = :restaurantId
+            AND p.id = :productId
+        </query>
+    </named-query>
 </entity-mappings>

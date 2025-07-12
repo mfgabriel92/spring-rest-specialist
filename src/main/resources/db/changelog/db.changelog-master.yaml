@@ -33,3 +33,5 @@ databaseChangeLog:
       file: db/changelog/create-restaurants_users-table-changelog.yaml
   - include:
       file: db/changelog/update-order_items-add-promotional_discount-changelog.yaml
+  - include:
+      file: db/changelog/create-product_photos-table-changelog.yaml

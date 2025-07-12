@@ -1,7 +1,6 @@
 package com.gabriel.springrestspecialist.domain.service;
 
 import com.gabriel.springrestspecialist.domain.model.User;
-import com.gabriel.springrestspecialist.domain.repository.RestaurantUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,7 +11,6 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class RestaurantUserService {
-    private final RestaurantUserRepository restaurantUserRepository;
     private final RestaurantService restaurantService;
     private final UserService userService;
 

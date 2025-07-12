@@ -3,6 +3,7 @@ package com.gabriel.springrestspecialist.domain.service;
 import com.gabriel.springrestspecialist.api.request.ProductPhotoRequest;
 import com.gabriel.springrestspecialist.domain.exception.EntityNotFoundException;
 import com.gabriel.springrestspecialist.domain.model.Product;
+import com.gabriel.springrestspecialist.domain.model.ProductPhoto;
 import com.gabriel.springrestspecialist.domain.repository.RestaurantProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class RestaurantProductService {
     private final RestaurantService restaurantService;
+    private final ProductPhotoService productPhotoService;
     private final RestaurantProductRepository restaurantProductRepository;
 
     public Product findById(UUID restaurantId, UUID productId) {
@@ -48,9 +50,9 @@ public class RestaurantProductService {
     }
 
     @Transactional
-    public void uploadPhoto(UUID restaurantId, UUID productId, @Valid ProductPhotoRequest request) {
+    public ProductPhoto uploadPhoto(UUID restaurantId, UUID productId, @Valid ProductPhotoRequest request) {
         var restaurant = restaurantService.findById(restaurantId);
-        findById(restaurant.getId(), productId);
+        var product = findById(restaurant.getId(), productId);
         var fileName = UUID.randomUUID() + "-" + request.getFile().getOriginalFilename();
         var dir = Path.of("/Users/gabriel/Desktop", fileName);
 
@@ -59,6 +61,15 @@ public class RestaurantProductService {
         } catch (Exception e) {
             throw new RuntimeException("Error uploading file", e);
         }
+
+        var photo = new ProductPhoto();
+        var file = request.getFile();
+        photo.setProduct(product);
+        photo.setName(file.getOriginalFilename());
+        photo.setContentType(file.getContentType());
+        photo.setFileSize(file.getSize());
+
+        return productPhotoService.save(photo);
     }
 
     @Transactional

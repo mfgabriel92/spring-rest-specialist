@@ -4,6 +4,7 @@ import com.gabriel.springrestspecialist.api.request.DeleteProductsRequest;
 import com.gabriel.springrestspecialist.api.request.ProductPhotoRequest;
 import com.gabriel.springrestspecialist.api.request.ProductRequest;
 import com.gabriel.springrestspecialist.api.request.ProductsRequest;
+import com.gabriel.springrestspecialist.api.response.ProductPhotoResponse;
 import com.gabriel.springrestspecialist.api.response.ProductResponse;
 import com.gabriel.springrestspecialist.domain.model.Product;
 import com.gabriel.springrestspecialist.domain.service.RestaurantProductService;
@@ -61,9 +62,10 @@ public class RestaurantProductController {
     }
 
     @PutMapping(value = "{productId}/photo", consumes = MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<ProductResponse> uploadPhoto(@PathVariable UUID restaurantId, @PathVariable UUID productId, ProductPhotoRequest request) {
-        restaurantProductService.uploadPhoto(restaurantId, productId, request);
-        return ok(null);
+    public ResponseEntity<ProductPhotoResponse> uploadPhoto(@PathVariable UUID restaurantId, @PathVariable UUID productId, ProductPhotoRequest request) {
+        var photo = restaurantProductService.uploadPhoto(restaurantId, productId, request);
+        var response = mapper.map(photo, ProductPhotoResponse.class);
+        return ok(response);
     }
 
     @DeleteMapping
