@@ -17,7 +17,9 @@ public enum ExceptionType {
     UNRECOGNIZED_PROPERTY(HttpStatus.BAD_REQUEST, "Unrecognized Property"),
     IGNORED_PROPERTY(HttpStatus.BAD_REQUEST, "Unrecognized Property"),
     TYPE_MISMATCH(HttpStatus.BAD_REQUEST, "Type Mistmach"),
-    VALIDATION_ERROR(HttpStatus.BAD_REQUEST, "Validation Error");
+    VALIDATION_ERROR(HttpStatus.BAD_REQUEST, "Validation Error"),
+    FILE_SIZE_EXCEEDED(HttpStatus.BAD_REQUEST, "File Size Exceeded"),
+    ;
 
     private final HttpStatus status;
     private final String title;

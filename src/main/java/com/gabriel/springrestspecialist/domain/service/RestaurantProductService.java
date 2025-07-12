@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.Valid;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.UUID;
@@ -47,7 +48,7 @@ public class RestaurantProductService {
     }
 
     @Transactional
-    public void uploadPhoto(UUID restaurantId, UUID productId, ProductPhotoRequest request) {
+    public void uploadPhoto(UUID restaurantId, UUID productId, @Valid ProductPhotoRequest request) {
         var restaurant = restaurantService.findById(restaurantId);
         findById(restaurant.getId(), productId);
         var fileName = UUID.randomUUID() + "-" + request.getFile().getOriginalFilename();
